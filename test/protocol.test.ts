@@ -100,9 +100,10 @@ describe("flashFirmware", () => {
     const ac = new AbortController();
     const run = flashFirmware(radio, image(32 * 1000), {
       signal: ac.signal,
-      onProgress: (p) => p.bytesSent > 3200 && ac.abort(),
+      onProgress: (p) => p.phase === "transfer" && ac.abort(),
     });
     await expect(run).rejects.toThrow(/Aborted/);
     expect(radio.ended).toBe(false);
+    expect(radio.packetsReceived).toBe(0);
   });
 });

@@ -1,7 +1,9 @@
 import "./style.css";
 import { loadFirmware, loadManifest, type FirmwareEntry } from "./firmware/catalog";
 import { MODELS, type RadioModel } from "./models";
-import { flashFirmware, type FlashPhase, type FlashProgress } from "./protocol/anytone";
+import { dumpFileName, downloadFile, encodeDump, readCodeplug, totalSize, type DumpProgress } from "./codeplug/dump";
+import { FlashError, flashFirmware, hex, type FlashPhase, type FlashProgress } from "./protocol/anytone";
+import { ProgramSession } from "./protocol/program";
 import { isWebSerialSupported, WebSerialTransport } from "./serial/webserial";
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -11,7 +13,12 @@ const ui = {
   model: $<HTMLSelectElement>("model"),
   modelNotes: $("model-notes"),
   firmwareList: $("firmware-list"),
-  updateKeys: $("update-keys"),
+  connectSteps: $("connect-steps"),
+  backup: $<HTMLInputElement>("backup"),
+  backupOnly: $<HTMLButtonElement>("backup-only"),
+  pause: $("pause"),
+  pauseText: $("pause-text"),
+  continueBtn: $<HTMLButtonElement>("continue"),
   pickPort: $<HTMLButtonElement>("pick-port"),
   portLabel: $("port-label"),
   confirm: $<HTMLInputElement>("confirm-backup"),
@@ -87,7 +94,9 @@ function selectModel(id: string) {
   state.model = MODELS.find((m) => m.id === id) ?? null;
   state.showOlder = false;
   ui.modelNotes.textContent = state.model?.notes ?? "";
-  ui.updateKeys.textContent = state.model?.updateModeKeys ?? "";
+  ui.backup.disabled = !state.model?.codeplug?.length;
+  if (ui.backup.disabled) ui.backup.checked = false;
+  renderConnectSteps();
   renderFirmware();
 }
 
@@ -148,6 +157,9 @@ function renderFirmware() {
 function updateControls() {
   const ready = !!(state.model && state.selected && state.port && ui.confirm.checked);
   ui.flash.disabled = state.busy || !ready || !isWebSerialSupported();
+  ui.backupOnly.disabled =
+    state.busy || !state.port || !state.model?.codeplug?.length || !isWebSerialSupported();
+  ui.backup.disabled = state.busy || !state.model?.codeplug?.length;
   ui.pickPort.disabled = state.busy || !isWebSerialSupported();
   ui.model.disabled = state.busy;
   ui.confirm.disabled = state.busy;
@@ -188,35 +200,107 @@ function renderProgress(p: FlashProgress, startedAt: number) {
     (p.retries ? ` · ${p.retries} retries` : "");
 }
 
-async function flash() {
-  const { model, selected, port } = state;
-  if (!model || !selected || !port) return;
-
-  state.busy = true;
-  state.abort = new AbortController();
-  updateControls();
-  ui.result.hidden = true;
+function resetProgress(label: string) {
   ui.progress.hidden = false;
   ui.progress.classList.remove("done", "failed");
   ui.barFill.style.width = "0";
   ui.percent.textContent = "0%";
   ui.stats.textContent = "";
-  ui.phase.textContent = "Loading firmware…";
+  ui.phase.textContent = label;
+}
 
-  let transport: WebSerialTransport | null = null;
+function renderDumpProgress(p: DumpProgress, startedAt: number) {
+  renderProgress({ phase: "transfer", bytesSent: p.bytesRead, totalBytes: p.totalBytes, retries: 0 }, startedAt);
+  ui.phase.textContent = p.region ? `Reading codeplug: ${p.region}` : "Codeplug read";
+}
+
+/** Shows a prompt with a Continue button; resolves on Continue, rejects on Cancel. */
+function waitForContinue(html: string, signal: AbortSignal): Promise<void> {
+  ui.pauseText.innerHTML = html;
+  ui.pause.hidden = false;
+  ui.continueBtn.focus();
+  return new Promise((resolve, reject) => {
+    const done = () => {
+      ui.pause.hidden = true;
+      ui.continueBtn.removeEventListener("click", onContinue);
+      signal.removeEventListener("abort", onAbort);
+    };
+    const onContinue = () => {
+      done();
+      resolve();
+    };
+    const onAbort = () => {
+      done();
+      reject(new FlashError("Aborted by user"));
+    };
+    ui.continueBtn.addEventListener("click", onContinue);
+    signal.addEventListener("abort", onAbort);
+  });
+}
+
+/**
+ * Power-cycling the radio re-enumerates its USB port, so the SerialPort we
+ * had may be stale. Prefer an already-granted port with the same USB IDs and
+ * fall back to the picker (we are inside the Continue click, so it may open).
+ */
+async function reacquirePort(previous: SerialPort): Promise<SerialPort> {
+  const { usbVendorId, usbProductId } = previous.getInfo();
+  const granted = await navigator.serial.getPorts();
+  if (granted.includes(previous)) return previous;
+  const same = granted.filter((p) => {
+    const i = p.getInfo();
+    return usbVendorId !== undefined && i.usbVendorId === usbVendorId && i.usbProductId === usbProductId;
+  });
+  if (same.length === 1) return same[0]!;
+  log("Radio port changed after restart; asking for it again.");
+  return navigator.serial.requestPort(usbVendorId !== undefined ? { filters: [{ usbVendorId }] } : undefined);
+}
+
+async function backupCodeplug(model: RadioModel, port: SerialPort, signal: AbortSignal): Promise<string> {
+  const regions = model.codeplug;
+  if (!regions?.length) throw new Error(`Codeplug backup is not available for ${model.name}`);
+  resetProgress("Connecting in programming mode…");
+  const transport = await WebSerialTransport.open(port);
   try {
-    log(`Loading ${model.name} firmware V${selected.version}…`);
-    const image = await loadFirmware(selected);
-    log(`Firmware OK: ${image.model} HW ${image.hwVersion}, ${image.data.length} bytes, start 0x${image.startAddress.toString(16)}`);
-    if (image.trailingBytes) log(`Ignoring ${image.trailingBytes} trailing bytes past the declared image size.`);
+    const session = await ProgramSession.open(transport);
+    const { ident } = session;
+    log(`Radio reports model ${ident.model}, hardware ${ident.hwVersion} (${hex(ident.raw)})`);
+    if (ident.model !== model.firmwareModel || !model.hwVersions.includes(ident.hwVersion)) {
+      await session.close();
+      throw new FlashError(`Radio is a ${ident.model} ${ident.hwVersion}, not a ${model.name}`);
+    }
+    log(`Reading ${regions.length} regions, ${fmtBytes(totalSize(regions))}…`);
+    const startedAt = performance.now();
+    let dump;
+    try {
+      dump = await readCodeplug(session, regions, { signal, onProgress: (p) => renderDumpProgress(p, startedAt) });
+    } finally {
+      await session.close().catch(() => {});
+    }
+    const name = dumpFileName(ident);
+    downloadFile(name, encodeDump(dump.header, dump.data));
+    log(`Codeplug saved as ${name}`);
+    ui.progress.classList.add("done");
+    return name;
+  } finally {
+    await transport.close();
+  }
+}
 
-    ui.phase.textContent = "Opening port…";
-    transport = await WebSerialTransport.open(port);
-    log(`Opened ${describePort(port)}`);
+async function flashImage(model: RadioModel, selected: FirmwareEntry, port: SerialPort, signal: AbortSignal) {
+  resetProgress("Loading firmware…");
+  log(`Loading ${model.name} firmware V${selected.version}…`);
+  const image = await loadFirmware(selected);
+  log(`Firmware OK: ${image.model} HW ${image.hwVersion}, ${image.data.length} bytes, start 0x${image.startAddress.toString(16)}`);
+  if (image.trailingBytes) log(`Ignoring ${image.trailingBytes} trailing bytes past the declared image size.`);
 
+  ui.phase.textContent = "Opening port…";
+  const transport = await WebSerialTransport.open(port);
+  log(`Opened ${describePort(port)}`);
+  try {
     const startedAt = performance.now();
     await flashFirmware(transport, image, {
-      signal: state.abort.signal,
+      signal,
       onLog: log,
       onProgress: (p) => renderProgress(p, startedAt),
       onIdent: (id) => {
@@ -225,14 +309,52 @@ async function flash() {
         }
       },
     });
+  } finally {
+    await transport.close();
+  }
+  ui.progress.classList.add("done");
+}
 
-    ui.progress.classList.add("done");
+async function run(mode: "flash" | "backup-only") {
+  const { model, selected } = state;
+  let port = state.port;
+  if (!model || !port || (mode === "flash" && !selected)) return;
+  const backup = mode === "backup-only" || ui.backup.checked;
+
+  state.busy = true;
+  state.abort = new AbortController();
+  const { signal } = state.abort;
+  updateControls();
+  ui.result.hidden = true;
+
+  let stage: "backup" | "flash" = backup ? "backup" : "flash";
+  try {
+    let saved: string | null = null;
+    if (backup) {
+      saved = await backupCodeplug(model, port, signal);
+      if (mode === "backup-only") {
+        showResult("ok", `<strong>Codeplug saved</strong> as <code>${escapeHtml(saved)}</code>.`);
+        return;
+      }
+      await waitForContinue(
+        `<strong>Backup saved as <code>${escapeHtml(saved)}</code>.</strong>
+         <p>Now switch the radio off, hold <kbd>${model.updateModeKeys}</kbd> and switch it on to enter update
+         mode. Then press Continue.</p>`,
+        signal,
+      );
+      port = await reacquirePort(port);
+      state.port = port;
+      ui.portLabel.textContent = describePort(port);
+    }
+    stage = "flash";
+    await flashImage(model, selected!, port, signal);
     showResult(
       "ok",
       `<strong>Firmware transferred.</strong>
        <p>Switch the radio off, then hold <kbd>${model.installKeys}</kbd> while switching it on to
        start the installer and confirm the update on the radio. Afterwards, write your codeplug back with the CPS
-       version that matches V${selected.version}.</p>`,
+       version that matches V${selected!.version}.</p>` +
+        (saved ? `<p>Your backup is in <code>${escapeHtml(saved)}</code>.</p>` : ""),
     );
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
@@ -241,17 +363,37 @@ async function flash() {
     ui.phase.textContent = "Failed";
     showResult(
       "danger",
-      `<strong>Flashing failed:</strong> ${escapeHtml(msg)}
-       <p>The radio's bootloader is untouched until you run the installer, so you can power-cycle it into
-       update mode (<kbd>${model.updateModeKeys}</kbd>) and try again.</p>`,
+      stage === "backup"
+        ? `<strong>Backup failed:</strong> ${escapeHtml(msg)}
+           <p>Nothing was flashed. Switch the radio on normally (no keys held) and try again, or untick the backup
+           option if you have saved the codeplug with the CPS.</p>`
+        : `<strong>Flashing failed:</strong> ${escapeHtml(msg)}
+           <p>The radio's bootloader is untouched until you run the installer, so you can power-cycle it into
+           update mode (<kbd>${model.updateModeKeys}</kbd>) and try again.</p>`,
     );
     ui.logWrap.open = true;
   } finally {
-    await transport?.close();
+    ui.pause.hidden = true;
     state.busy = false;
     state.abort = null;
     updateControls();
   }
+}
+
+function renderConnectSteps() {
+  const keys = escapeHtml(state.model?.updateModeKeys ?? "");
+  const steps = ui.backup.checked
+    ? [
+        "Connect the programming cable and switch the radio on normally.",
+        "Pick its serial port. The codeplug is read and saved first.",
+        `When asked, restart it in update mode: hold <kbd>${keys}</kbd> while switching on.`,
+      ]
+    : [
+        "Switch the radio off and connect the programming cable.",
+        `Hold <kbd>${keys}</kbd> and switch the radio on. It boots into firmware-update mode.`,
+        "Pick its serial port.",
+      ];
+  ui.connectSteps.innerHTML = steps.map((s) => `<li>${s}</li>`).join("");
 }
 
 const escapeHtml = (s: string) =>
@@ -263,7 +405,9 @@ async function init() {
   ui.model.addEventListener("change", () => selectModel(ui.model.value));
   ui.pickPort.addEventListener("click", pickPort);
   ui.confirm.addEventListener("change", updateControls);
-  ui.flash.addEventListener("click", flash);
+  ui.flash.addEventListener("click", () => run("flash"));
+  ui.backupOnly.addEventListener("click", () => run("backup-only"));
+  ui.backup.addEventListener("change", renderConnectSteps);
   ui.cancel.addEventListener("click", () => {
     state.abort?.abort();
     log("Cancelling…");

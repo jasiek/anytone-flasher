@@ -1,3 +1,6 @@
+import type { CodeplugRegion } from "./codeplug/dump";
+import { D878UV_CODEPLUG } from "./codeplug/d878uv";
+
 // Radios that speak the AnyTone bootloader protocol (src/protocol/anytone.ts).
 // To add one: add an entry here, then bundle firmware with `npm run add-firmware`.
 // `firmwareModel` and `hwVersions` must match what the radio reports to the
@@ -14,6 +17,8 @@ export interface RadioModel {
   /** Keys held while powering on afterwards to run the on-radio installer. */
   installKeys: string;
   notes?: string;
+  /** Memory regions saved by the codeplug backup; omit to disable backup. */
+  codeplug?: CodeplugRegion[];
 }
 
 export const MODELS: RadioModel[] = [
@@ -24,6 +29,7 @@ export const MODELS: RadioModel[] = [
     hwVersions: ["V100"],
     updateModeKeys: "PF3 (blue key on top) + PTT",
     installKeys: "PF1 (side key next to PTT) + PTT",
+    codeplug: D878UV_CODEPLUG,
     notes: "Original D878UV (V1). The D878UVII / UVII Plus uses a different firmware line and is not supported yet.",
   },
 ];

@@ -37,11 +37,14 @@
 
       <section class="step" id="step-port">
         <h2><span class="num">3</span> Connect the radio</h2>
-        <ol class="instructions">
-          <li>Switch the radio off and connect the programming cable.</li>
-          <li>Hold <kbd id="update-keys"></kbd> and switch the radio on. It boots into firmware-update mode.</li>
-          <li>Pick its serial port.</li>
-        </ol>
+        <label class="check">
+          <input type="checkbox" id="backup" checked />
+          <span>
+            Save a codeplug backup to a file before flashing
+            <span class="hint-inline">Reads channels, zones, contacts, settings and more in normal mode first (the downloadable callsign database is not included).</span>
+          </span>
+        </label>
+        <ol class="instructions" id="connect-steps"></ol>
         <div class="row">
           <button id="pick-port" type="button" class="secondary">Select port…</button>
           <span id="port-label" class="muted">No port selected</span>
@@ -52,11 +55,19 @@
         <h2><span class="num">4</span> Flash</h2>
         <label class="check">
           <input type="checkbox" id="confirm-backup" />
-          I have backed up my codeplug and understand it will be erased.
+          I understand flashing erases the radio's codeplug and contacts.
         </label>
         <div class="row">
           <button id="flash" type="button" class="primary" disabled>Flash firmware</button>
+          <button id="backup-only" type="button" class="secondary" disabled>Back up codeplug only</button>
           <button id="cancel" type="button" class="secondary" hidden>Cancel</button>
+        </div>
+
+        <div id="pause" class="banner warn" hidden>
+          <div id="pause-text"></div>
+          <div class="row" style="margin-top: 10px">
+            <button id="continue" type="button" class="primary">Continue</button>
+          </div>
         </div>
 
         <div id="progress" class="progress" hidden>

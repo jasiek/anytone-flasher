@@ -12,10 +12,31 @@ release BridgeCom publishes for it, V1.09 through V4.00 (26 versions, about 22 M
 
 ## Use
 
-1. Switch the radio off, connect the cable, then hold **PF3 + PTT** while switching it on (update mode).
-2. Select model → firmware → port, tick the backup box, press **Flash firmware**.
-3. When the transfer finishes, switch the radio off and hold **PF1 + PTT** while switching it on.
+1. Select model and firmware.
+2. With **Save a codeplug backup** ticked (default), switch the radio on normally and pick its port.
+   Without a backup, switch it on in update mode instead: hold **PF3 + PTT** while switching on.
+3. Tick the confirmation box, press **Flash firmware**.
+   - If backing up, the codeplug is read and downloaded as a `.atdump` file.
+     You are then asked to restart the radio in update mode (**PF3 + PTT**) and press Continue.
+4. When the transfer finishes, switch the radio off and hold **PF1 + PTT** while switching it on.
    This starts the on-radio installer.
+
+**Back up codeplug only** saves the backup without flashing.
+
+## Codeplug backup
+
+The backup is a raw read of the radio's codeplug memory, not a CPS `.rdt` file. It is meant for
+restoring with a tool that writes raw memory, or for decoding later. For the D878UV it covers
+2.2 MB in 135 regions: channels, zones, scan lists, talk groups/contacts (up to 10000), RX group
+lists, radio IDs, SMS, roaming, encryption keys, settings, APRS, boot logo and standby pictures.
+The map comes from qdmr (`src/codeplug/d878uv.ts`). The callsign database is not included.
+
+Reading uses the programming-mode protocol (`src/protocol/program.ts`):
+`PROGRAM` → `QX 06`, `02` → ident, `R addr[4 BE] 10` → `W addr[4 BE] 10 data[16] sum 06`, `END` → `06`.
+
+File layout (`src/codeplug/dump.ts`): `"ATCPDUMP"`, u32 LE format version (1), u32 LE header length,
+JSON header (model, hardware, ident, and each region's name, address, length and offset), then the
+region data concatenated.
 
 ## Develop
 
