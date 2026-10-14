@@ -115,7 +115,7 @@ describe("flashFirmware", () => {
     expect(radio.packetsReceived).toBe(12);
   });
 
-  it("accepts a late ACK without resending, and slows down after a lost packet", async () => {
+  it("accepts a late ACK without resending", async () => {
     // The mock caps the ACK wait at 20 ms; the follow-up wait still catches a 30 ms ACK.
     const radio = new MockRadio({ lateAcks: new Map([[2, 30]]), dropAcks: new Set([5]) });
     const img = image(32 * 8);
@@ -124,7 +124,7 @@ describe("flashFirmware", () => {
     expectFlashed(radio, img);
     expect(radio.packetsReceived).toBe(9);
     expect(log.some((m) => /0x8004040: late ACK/.test(m))).toBe(true);
-    expect(log.some((m) => /0x80040a0: timeout, retrying \(now 1 ms between packets/.test(m))).toBe(true);
+    expect(log.some((m) => /0x80040a0: timeout, retrying \(ACK avg/.test(m))).toBe(true);
     expect(log).toContainEqual(expect.stringMatching(/with 1 resends \(ACK avg/));
   });
 

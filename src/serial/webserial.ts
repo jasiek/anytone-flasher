@@ -4,6 +4,13 @@ import { ByteQueue, type Transport } from "./transport";
 // hardware. 4 Mbaud matches the reference tool that was tested on real radios.
 export const DEFAULT_BAUD_RATE = 4_000_000;
 
+// Chrome passes writes through a ring buffer of `bufferSize` bytes (default
+// 255). A write that straddles its end goes out as two USB transfers, and the
+// update bootloader silently drops a packet that arrives split: one firmware
+// block in every ~256 bytes went unanswered. With a buffer larger than a whole
+// transfer (about 1.3 MB for a 1 MB image) it never wraps. Chrome's limit is 16 MiB.
+export const DEFAULT_BUFFER_SIZE = 8 * 1024 * 1024;
+
 export function isWebSerialSupported(): boolean {
   return typeof navigator !== "undefined" && "serial" in navigator;
 }
@@ -15,8 +22,12 @@ export class WebSerialTransport implements Transport {
 
   private constructor(readonly port: SerialPort) {}
 
-  static async open(port: SerialPort, baudRate = DEFAULT_BAUD_RATE): Promise<WebSerialTransport> {
-    await port.open({ baudRate, dataBits: 8, stopBits: 1, parity: "none", flowControl: "none" });
+  static async open(
+    port: SerialPort,
+    baudRate = DEFAULT_BAUD_RATE,
+    bufferSize = DEFAULT_BUFFER_SIZE,
+  ): Promise<WebSerialTransport> {
+    await port.open({ baudRate, bufferSize, dataBits: 8, stopBits: 1, parity: "none", flowControl: "none" });
     const t = new WebSerialTransport(port);
     t.startReading();
     return t;
