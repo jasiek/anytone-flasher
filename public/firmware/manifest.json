@@ -1,0 +1,394 @@
+{
+  "firmware": [
+    {
+      "modelId": "d878uv",
+      "version": "4.00",
+      "date": "2025-07-25",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 931328,
+      "sha256": "aae150dc3ff7f64c5c1f3a64abc7d91a59438635d7cb946e7aec68011dad4b55",
+      "files": {
+        "spi": "d878uv/4.00/D878UV_V4.00_20250725.spi",
+        "cdi": "d878uv/4.00/D878UV_V4.00_20250725.CDI",
+        "cdd": "d878uv/4.00/D878UV_V4.00_20250725.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.08N",
+      "date": "2025-06-10",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 939036,
+      "sha256": "cd0f56b6ccb2f78c8fe298cc6d4a1fd3514f7fc6fbdfc99730b85d6184e8f6ee",
+      "files": {
+        "spi": "d878uv/3.08N/D878UV_V3.08n_20250610.spi",
+        "cdi": "d878uv/3.08N/D878UV_V3.08n_20250610.CDI",
+        "cdd": "d878uv/3.08N/D878UV_V3.08n_20250610.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.06",
+      "date": "2025-01-23",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 939096,
+      "sha256": "4ea3a6f285e091db55487e86bb1a96bb20af8bb35c56fa13343bc11315734ccd",
+      "files": {
+        "spi": "d878uv/3.06/D878UV_V3.06_20250123.spi",
+        "cdi": "d878uv/3.06/D878UV_V3.06_20250123.CDI",
+        "cdd": "d878uv/3.06/D878UV_V3.06_20250123.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.05",
+      "date": "2024-12-10",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 936380,
+      "sha256": "ae44b8a80d02464cee8e1c9ae5ccd5fa8d1a6f16295e5b82ea4cf7bc4f4fc2aa",
+      "files": {
+        "spi": "d878uv/3.05/D878UV_V3.05_20241210.spi",
+        "cdi": "d878uv/3.05/D878UV_V3.05_20241210.CDI",
+        "cdd": "d878uv/3.05/D878UV_V3.05_20241210.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.04",
+      "date": "2024-09-12",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 934256,
+      "sha256": "6fa6f45ceabd53d69818ab96dddc793158a4f6c8bb4fe55e29fcab440a264715",
+      "files": {
+        "spi": "d878uv/3.04/D878UV_V3.04_20240912.spi",
+        "cdi": "d878uv/3.04/D878UV_V3.04_20240912.CDI",
+        "cdd": "d878uv/3.04/D878UV_V3.04_20240912.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.03",
+      "date": "2023-12-18",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 923368,
+      "sha256": "bdcb45d7d9b784d07c98a8e04109696528fd01cbbe20c713759d3b1b8bc20ee5",
+      "files": {
+        "spi": "d878uv/3.03/D878UV_V3.03_20231218.spi",
+        "cdi": "d878uv/3.03/D878UV_V3.03_20231218.CDI",
+        "cdd": "d878uv/3.03/D878UV_V3.03_20231218.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.02N",
+      "date": "2023-04-21",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 922008,
+      "sha256": "91a05bebb419ec3727bdc7c879454af3e56d246be02d1aacac2f49eaf569021f",
+      "files": {
+        "spi": "d878uv/3.02N/D878UV_V3.02n_20230421.spi",
+        "cdi": "d878uv/3.02N/D878UV_V3.02n_20230421.CDI",
+        "cdd": "d878uv/3.02N/D878UV_V3.02n_20230421.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.01",
+      "date": "2022-11-03",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 915492,
+      "sha256": "f7d1d0b3d16161e753a9aeedb9c887a733ea3811f6d85bf227a7b1084211b910",
+      "files": {
+        "spi": "d878uv/3.01/D878UV_V3.01_20221103.spi",
+        "cdi": "d878uv/3.01/D878UV_V3.01_20221103.CDI",
+        "cdd": "d878uv/3.01/D878UV_V3.01_20221103.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "3.00",
+      "date": "2022-09-24",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 913420,
+      "sha256": "4b78a0ce34360ffeaf2aea8dcace0de5634b56644bc44b8a0e089e86d74b2c65",
+      "files": {
+        "spi": "d878uv/3.00/D878UV_V3.00_20220924.spi",
+        "cdi": "d878uv/3.00/D878UV_V3.00_20220924.CDI",
+        "cdd": "d878uv/3.00/D878UV_V3.00_20220924.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.27",
+      "date": "2022-04-08",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 910376,
+      "sha256": "1e336989fe6eb0156b784d9d05d1a1f053e692caacd74b6a351e02741903e988",
+      "files": {
+        "spi": "d878uv/1.27/D878UV_V1.27_20220408.spi",
+        "cdi": "d878uv/1.27/D878UV_V1.27_20220408.CDI",
+        "cdd": "d878uv/1.27/D878UV_V1.27_20220408.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.26",
+      "date": "2021-12-09",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 906392,
+      "sha256": "393a50d9c6eb325b2db7372ec9c6dc3a9839d85d3a033796009bf4ecb18d1e6c",
+      "files": {
+        "spi": "d878uv/1.26/D878UV_V1.26_20211209.spi",
+        "cdi": "d878uv/1.26/D878UV_V1.26_20211209.CDI",
+        "cdd": "d878uv/1.26/D878UV_V1.26_20211209.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.24N",
+      "date": "2021-05-26",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 892480,
+      "sha256": "efc8fe001f8628dabb18ec0abf4b176573e46d44dfe8661b7d18c379b743c9f8",
+      "files": {
+        "spi": "d878uv/1.24N/D878UV_V1.24N_20210526.spi",
+        "cdi": "d878uv/1.24N/D878UV_V1.24N_20210526.CDI",
+        "cdd": "d878uv/1.24N/D878UV_V1.24N_20210526.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.23",
+      "date": "2021-04-12",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 885288,
+      "sha256": "4a523ec5170aa8cd7b0c6a9a76e3a0fdab28dfef949387fc8503ef79787cc62f",
+      "files": {
+        "spi": "d878uv/1.23/D878UV_V1.23_20210412.spi",
+        "cdi": "d878uv/1.23/D878UV_V1.23_20210412.CDI",
+        "cdd": "d878uv/1.23/D878UV_V1.23_20210412.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.21",
+      "date": "2020-09-17",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 859584,
+      "sha256": "e1c1b3ad65fb1aecdd23568f26db7dd0debc0fcc9728e01278f11ffaff41f59f",
+      "files": {
+        "spi": "d878uv/1.21/D878UV_V1.21_20200917.spi",
+        "cdi": "d878uv/1.21/D878UV_V1.21_20200917.CDI",
+        "cdd": "d878uv/1.21/D878UV_V1.21_20200917.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.20P",
+      "date": "2020-09-08",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 859336,
+      "sha256": "7370a4e02097023f4bc40faa17624182b9b981c0444f77eaef02afee67efd2ae",
+      "files": {
+        "spi": "d878uv/1.20P/D878UV_V1.20P_20200908.spi",
+        "cdi": "d878uv/1.20P/D878UV_V1.20P_20200908.CDI",
+        "cdd": "d878uv/1.20P/D878UV_V1.20P_20200908.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.19",
+      "date": "2020-06-16",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 837016,
+      "sha256": "3817e29808285add16ddc7e1033db8fd9fef69289241817d28949ec499c8ec5b",
+      "files": {
+        "spi": "d878uv/1.19/D878UV_V1.19_20200616.spi",
+        "cdi": "d878uv/1.19/D878UV_V1.19_20200616.CDI",
+        "cdd": "d878uv/1.19/D878UV_V1.19_20200616.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.18",
+      "date": "2020-04-10",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 834420,
+      "sha256": "a9170b8c070e72a396963faf4cdca328ccef02331e4efc8dbbcb8a352030accc",
+      "files": {
+        "spi": "d878uv/1.18/D878UV_V1.18_20200410.spi",
+        "cdi": "d878uv/1.18/D878UV_V1.18_20200410.CDI",
+        "cdd": "d878uv/1.18/D878UV_V1.18_20200410.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.17",
+      "date": "2020-01-16",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 828104,
+      "sha256": "47bf1804d2b3223012bec82b811e83ac3c3706193caaece3945e62b35e9ceab2",
+      "files": {
+        "spi": "d878uv/1.17/D878UV_V1.17_20200116.spi",
+        "cdi": "d878uv/1.17/D878UV_V1.17_20200116.CDI",
+        "cdd": "d878uv/1.17/D878UV_V1.17_20200116.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.16",
+      "date": "2019-11-22",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 822908,
+      "sha256": "dfe6edb8df55a67826c95c709d8a05f984b7719437ff14c0c3804b18cf2ef895",
+      "files": {
+        "spi": "d878uv/1.16/D878UV_V1.16_201901122.spi",
+        "cdi": "d878uv/1.16/D878UV_V1.16_201901122.CDI",
+        "cdd": "d878uv/1.16/D878UV_V1.16_201901122.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.15",
+      "date": "2019-09-26",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 819680,
+      "sha256": "c11800a377f14b7edea90349d3c5a83fa46859ead9b45f2ad60a9fd33bcbcad3",
+      "files": {
+        "spi": "d878uv/1.15/D878UV_V1.15_20190926.spi",
+        "cdi": "d878uv/1.15/D878UV_V1.15_20190926.CDI",
+        "cdd": "d878uv/1.15/D878UV_V1.15_20190926.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.13",
+      "date": "2019-06-08",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 793664,
+      "sha256": "1b3f623f3f888dd265d2a382e3bac3c2c5c29344b9d6cdef5fab0bc9784a1119",
+      "files": {
+        "spi": "d878uv/1.13/D878UV_V1.13_2019-06-08.spi",
+        "cdi": "d878uv/1.13/D878UV_V1.13_2019-06-08.CDI",
+        "cdd": "d878uv/1.13/D878UV_V1.13_2019-06-08.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.12",
+      "date": "2019-04-18",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 786132,
+      "sha256": "13a1d23c1704d0a71940cfc892f4824158be400a42faca69ef6c2dc8ced9bcd4",
+      "files": {
+        "spi": "d878uv/1.12/D878UV_V1.12_2019-04-18.spi",
+        "cdi": "d878uv/1.12/D878UV_V1.12_2019-04-18.CDI",
+        "cdd": "d878uv/1.12/D878UV_V1.12_2019-04-18.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.11N",
+      "date": "2019-04-09",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 786036,
+      "sha256": "152cbcd511e2e86de46e19099d31deb00d0387c1d19bb7474060f5b6781ad166",
+      "files": {
+        "spi": "d878uv/1.11N/D878UV_V1.11N_2019-04-09.spi",
+        "cdi": "d878uv/1.11N/D878UV_V1.11N_2019-04-09.CDI",
+        "cdd": "d878uv/1.11N/D878UV_V1.11N_2019-04-09.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.11",
+      "date": "2019-03-22",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 785992,
+      "sha256": "2ac6bb9d31b5de359f08dae45feb74973e7a7d7d6c4586e5aab8a4784a07cb49",
+      "files": {
+        "spi": "d878uv/1.11/D878UV_V1.11_2019-03-22.spi",
+        "cdi": "d878uv/1.11/D878UV_V1.11_2019-03-22.CDI",
+        "cdd": "d878uv/1.11/D878UV_V1.11_2019-03-22.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.10",
+      "date": "2018-12-21",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 787956,
+      "sha256": "fd1f8ca32e0d3da854703755a530370a96052b33254857850bad2a942bb76534",
+      "files": {
+        "spi": "d878uv/1.10/D878UV_V1.10_2018-12-21.spi",
+        "cdi": "d878uv/1.10/D878UV_V1.10_2018-12-21.CDI",
+        "cdd": "d878uv/1.10/D878UV_V1.10_2018-12-21.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv",
+      "version": "1.09",
+      "date": "2018-11-22",
+      "firmwareModel": "D878UV",
+      "hwVersion": "V100",
+      "startAddress": 134234112,
+      "size": 778092,
+      "sha256": "2fa1dc9c355ca0fd8a11a9710bd293dc2983a2d4da342d8bf61262bc455ff5ee",
+      "files": {
+        "spi": "d878uv/1.09/D878UV_V1.09_2018-11-22.spi",
+        "cdi": "d878uv/1.09/D878UV_V1.09_2018-11-22.CDI",
+        "cdd": "d878uv/1.09/D878UV_V1.09_2018-11-22.CDD"
+      }
+    }
+  ]
+}

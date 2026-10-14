@@ -1,0 +1,25 @@
+{
+  "name": "anytone-flasher",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Web Serial firmware flasher for AnyTone DMR radios",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "add-firmware": "tsx scripts/add-firmware.ts",
+    "dev:lan": "HTTPS=1 vite --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/w3c-web-serial": "^1.0.8",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^6.4.4",
+    "vitest": "^4.1.11"
+  }
+}

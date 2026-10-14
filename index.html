@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>AnyTone Flasher</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23e8590c' d='M13 2 4 14h7l-1 8 9-12h-7z'/></svg>" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <h1>AnyTone Flasher</h1>
+        <p class="lede">Flash official firmware to AnyTone radios from your browser over USB.</p>
+      </header>
+
+      <div id="unsupported" class="banner danger" hidden>
+        This browser cannot access serial ports. Use a desktop version of Chrome, Edge or Opera
+        (Web Serial API), served over HTTPS or from localhost.
+      </div>
+
+      <div class="banner warn">
+        <strong>Flashing erases the radio's codeplug and contacts.</strong> Read and save your
+        codeplug with the CPS first. Use firmware made for your exact model and hardware version.
+      </div>
+
+      <section class="step" id="step-model">
+        <h2><span class="num">1</span> Radio model</h2>
+        <select id="model"></select>
+        <p class="hint" id="model-notes"></p>
+      </section>
+
+      <section class="step" id="step-firmware">
+        <h2><span class="num">2</span> Firmware</h2>
+        <div id="firmware-list" class="choices" role="radiogroup" aria-label="Firmware version"></div>
+      </section>
+
+      <section class="step" id="step-port">
+        <h2><span class="num">3</span> Connect the radio</h2>
+        <ol class="instructions">
+          <li>Switch the radio off and connect the programming cable.</li>
+          <li>Hold <kbd id="update-keys"></kbd> and switch the radio on. It boots into firmware-update mode.</li>
+          <li>Pick its serial port.</li>
+        </ol>
+        <div class="row">
+          <button id="pick-port" type="button" class="secondary">Select port…</button>
+          <span id="port-label" class="muted">No port selected</span>
+        </div>
+      </section>
+
+      <section class="step" id="step-flash">
+        <h2><span class="num">4</span> Flash</h2>
+        <label class="check">
+          <input type="checkbox" id="confirm-backup" />
+          I have backed up my codeplug and understand it will be erased.
+        </label>
+        <div class="row">
+          <button id="flash" type="button" class="primary" disabled>Flash firmware</button>
+          <button id="cancel" type="button" class="secondary" hidden>Cancel</button>
+        </div>
+
+        <div id="progress" class="progress" hidden>
+          <div class="progress-head">
+            <span id="phase">Starting…</span>
+            <span id="percent">0%</span>
+          </div>
+          <div class="bar"><div id="bar-fill"></div></div>
+          <div class="stats muted" id="stats"></div>
+        </div>
+
+        <div id="result" class="banner" hidden></div>
+
+        <details id="log-wrap">
+          <summary>Log</summary>
+          <pre id="log"></pre>
+        </details>
+      </section>
+
+      <footer class="muted">
+        Protocol from
+        <a href="https://github.com/reald/anytone-flash-tools">reald/anytone-flash-tools</a>.
+        Firmware © Qixiang Electron (AnyTone), redistributed unmodified. No warranty: use at your own risk.
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
