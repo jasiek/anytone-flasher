@@ -5,8 +5,14 @@
       "version": "4.00",
       "date": "2025-07-25",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 931328
+        }
+      ],
       "size": 931328,
       "sha256": "aae150dc3ff7f64c5c1f3a64abc7d91a59438635d7cb946e7aec68011dad4b55",
       "files": {
@@ -20,8 +26,14 @@
       "version": "3.08N",
       "date": "2025-06-10",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 939036
+        }
+      ],
       "size": 939036,
       "sha256": "cd0f56b6ccb2f78c8fe298cc6d4a1fd3514f7fc6fbdfc99730b85d6184e8f6ee",
       "files": {
@@ -35,8 +47,14 @@
       "version": "3.06",
       "date": "2025-01-23",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 939096
+        }
+      ],
       "size": 939096,
       "sha256": "4ea3a6f285e091db55487e86bb1a96bb20af8bb35c56fa13343bc11315734ccd",
       "files": {
@@ -50,8 +68,14 @@
       "version": "3.05",
       "date": "2024-12-10",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 936380
+        }
+      ],
       "size": 936380,
       "sha256": "ae44b8a80d02464cee8e1c9ae5ccd5fa8d1a6f16295e5b82ea4cf7bc4f4fc2aa",
       "files": {
@@ -65,8 +89,14 @@
       "version": "3.04",
       "date": "2024-09-12",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 934256
+        }
+      ],
       "size": 934256,
       "sha256": "6fa6f45ceabd53d69818ab96dddc793158a4f6c8bb4fe55e29fcab440a264715",
       "files": {
@@ -80,8 +110,14 @@
       "version": "3.03",
       "date": "2023-12-18",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 923368
+        }
+      ],
       "size": 923368,
       "sha256": "bdcb45d7d9b784d07c98a8e04109696528fd01cbbe20c713759d3b1b8bc20ee5",
       "files": {
@@ -95,8 +131,14 @@
       "version": "3.02N",
       "date": "2023-04-21",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 922008
+        }
+      ],
       "size": 922008,
       "sha256": "91a05bebb419ec3727bdc7c879454af3e56d246be02d1aacac2f49eaf569021f",
       "files": {
@@ -110,8 +152,14 @@
       "version": "3.01",
       "date": "2022-11-03",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 915492
+        }
+      ],
       "size": 915492,
       "sha256": "f7d1d0b3d16161e753a9aeedb9c887a733ea3811f6d85bf227a7b1084211b910",
       "files": {
@@ -125,8 +173,14 @@
       "version": "3.00",
       "date": "2022-09-24",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 913420
+        }
+      ],
       "size": 913420,
       "sha256": "4b78a0ce34360ffeaf2aea8dcace0de5634b56644bc44b8a0e089e86d74b2c65",
       "files": {
@@ -140,8 +194,14 @@
       "version": "1.27",
       "date": "2022-04-08",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 910376
+        }
+      ],
       "size": 910376,
       "sha256": "1e336989fe6eb0156b784d9d05d1a1f053e692caacd74b6a351e02741903e988",
       "files": {
@@ -155,8 +215,14 @@
       "version": "1.26",
       "date": "2021-12-09",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 906392
+        }
+      ],
       "size": 906392,
       "sha256": "393a50d9c6eb325b2db7372ec9c6dc3a9839d85d3a033796009bf4ecb18d1e6c",
       "files": {
@@ -170,8 +236,14 @@
       "version": "1.24N",
       "date": "2021-05-26",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 892480
+        }
+      ],
       "size": 892480,
       "sha256": "efc8fe001f8628dabb18ec0abf4b176573e46d44dfe8661b7d18c379b743c9f8",
       "files": {
@@ -185,8 +257,14 @@
       "version": "1.23",
       "date": "2021-04-12",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 885288
+        }
+      ],
       "size": 885288,
       "sha256": "4a523ec5170aa8cd7b0c6a9a76e3a0fdab28dfef949387fc8503ef79787cc62f",
       "files": {
@@ -200,8 +278,14 @@
       "version": "1.21",
       "date": "2020-09-17",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 859584
+        }
+      ],
       "size": 859584,
       "sha256": "e1c1b3ad65fb1aecdd23568f26db7dd0debc0fcc9728e01278f11ffaff41f59f",
       "files": {
@@ -215,8 +299,14 @@
       "version": "1.20P",
       "date": "2020-09-08",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 859336
+        }
+      ],
       "size": 859336,
       "sha256": "7370a4e02097023f4bc40faa17624182b9b981c0444f77eaef02afee67efd2ae",
       "files": {
@@ -230,8 +320,14 @@
       "version": "1.19",
       "date": "2020-06-16",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 837016
+        }
+      ],
       "size": 837016,
       "sha256": "3817e29808285add16ddc7e1033db8fd9fef69289241817d28949ec499c8ec5b",
       "files": {
@@ -245,8 +341,14 @@
       "version": "1.18",
       "date": "2020-04-10",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 834420
+        }
+      ],
       "size": 834420,
       "sha256": "a9170b8c070e72a396963faf4cdca328ccef02331e4efc8dbbcb8a352030accc",
       "files": {
@@ -260,8 +362,14 @@
       "version": "1.17",
       "date": "2020-01-16",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 828104
+        }
+      ],
       "size": 828104,
       "sha256": "47bf1804d2b3223012bec82b811e83ac3c3706193caaece3945e62b35e9ceab2",
       "files": {
@@ -275,8 +383,14 @@
       "version": "1.16",
       "date": "2019-11-22",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 822908
+        }
+      ],
       "size": 822908,
       "sha256": "dfe6edb8df55a67826c95c709d8a05f984b7719437ff14c0c3804b18cf2ef895",
       "files": {
@@ -290,8 +404,14 @@
       "version": "1.15",
       "date": "2019-09-26",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 819680
+        }
+      ],
       "size": 819680,
       "sha256": "c11800a377f14b7edea90349d3c5a83fa46859ead9b45f2ad60a9fd33bcbcad3",
       "files": {
@@ -305,8 +425,14 @@
       "version": "1.13",
       "date": "2019-06-08",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 793664
+        }
+      ],
       "size": 793664,
       "sha256": "1b3f623f3f888dd265d2a382e3bac3c2c5c29344b9d6cdef5fab0bc9784a1119",
       "files": {
@@ -320,8 +446,14 @@
       "version": "1.12",
       "date": "2019-04-18",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 786132
+        }
+      ],
       "size": 786132,
       "sha256": "13a1d23c1704d0a71940cfc892f4824158be400a42faca69ef6c2dc8ced9bcd4",
       "files": {
@@ -335,8 +467,14 @@
       "version": "1.11N",
       "date": "2019-04-09",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 786036
+        }
+      ],
       "size": 786036,
       "sha256": "152cbcd511e2e86de46e19099d31deb00d0387c1d19bb7474060f5b6781ad166",
       "files": {
@@ -350,8 +488,14 @@
       "version": "1.11",
       "date": "2019-03-22",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 785992
+        }
+      ],
       "size": 785992,
       "sha256": "2ac6bb9d31b5de359f08dae45feb74973e7a7d7d6c4586e5aab8a4784a07cb49",
       "files": {
@@ -365,8 +509,14 @@
       "version": "1.10",
       "date": "2018-12-21",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 787956
+        }
+      ],
       "size": 787956,
       "sha256": "fd1f8ca32e0d3da854703755a530370a96052b33254857850bad2a942bb76534",
       "files": {
@@ -380,14 +530,1153 @@
       "version": "1.09",
       "date": "2018-11-22",
       "firmwareModel": "D878UV",
+      "mcu": null,
       "hwVersion": "V100",
-      "startAddress": 134234112,
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 778092
+        }
+      ],
       "size": 778092,
       "sha256": "2fa1dc9c355ca0fd8a11a9710bd293dc2983a2d4da342d8bf61262bc455ff5ee",
       "files": {
         "spi": "d878uv/1.09/D878UV_V1.09_2018-11-22.spi",
         "cdi": "d878uv/1.09/D878UV_V1.09_2018-11-22.CDI",
         "cdd": "d878uv/1.09/D878UV_V1.09_2018-11-22.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "4.00",
+      "date": "2025-07-25",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 931392
+        }
+      ],
+      "size": 931392,
+      "sha256": "8f840cfcfc1bb9acab65429ced211481eeb80079725ec46cf225afce071afeeb",
+      "files": {
+        "spi": "d878uv2/4.00/D878UVII_V4.00_20250725.spi",
+        "cdi": "d878uv2/4.00/D878UVII_V4.00_20250725.CDI",
+        "cdd": "d878uv2/4.00/D878UVII_V4.00_20250725.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.08N",
+      "date": "2025-06-13",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 939224
+        }
+      ],
+      "size": 939224,
+      "sha256": "6ce38ca0900484e582920b911a214adeaca31d715d4778cd36f6fbf89f7a5fd8",
+      "files": {
+        "spi": "d878uv2/3.08N/D878UVII_V3.08n_20250613.spi",
+        "cdi": "d878uv2/3.08N/D878UVII_V3.08n_20250613.CDI",
+        "cdd": "d878uv2/3.08N/D878UVII_V3.08n_20250613.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.06",
+      "date": "2025-01-23",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 939156
+        }
+      ],
+      "size": 939156,
+      "sha256": "0973126fc33fda1d734dbc064852648710de52f44c2bc7df07bc9fd4272cfef8",
+      "files": {
+        "spi": "d878uv2/3.06/D878UVII_V3.06_20250123.spi",
+        "cdi": "d878uv2/3.06/D878UVII_V3.06_20250123.CDI",
+        "cdd": "d878uv2/3.06/D878UVII_V3.06_20250123.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.05",
+      "date": "2024-12-10",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 936516
+        }
+      ],
+      "size": 936516,
+      "sha256": "dcfbc4abe64017b646af4c02ff9bb53c26581a22737b601135c9383a4361dce1",
+      "files": {
+        "spi": "d878uv2/3.05/D878UVII_V3.05_20241210.spi",
+        "cdi": "d878uv2/3.05/D878UVII_V3.05_20241210.CDI",
+        "cdd": "d878uv2/3.05/D878UVII_V3.05_20241210.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.04",
+      "date": "2024-09-12",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 934404
+        }
+      ],
+      "size": 934404,
+      "sha256": "a3015dee2ec45387a81f07d140ddea5cead69e892a44bd013b2a29042305fcbf",
+      "files": {
+        "spi": "d878uv2/3.04/D878UVII_V3.04_20240912.spi",
+        "cdi": "d878uv2/3.04/D878UVII_V3.04_20240912.CDI",
+        "cdd": "d878uv2/3.04/D878UVII_V3.04_20240912.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.03",
+      "date": "2023-12-18",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 923516
+        }
+      ],
+      "size": 923516,
+      "sha256": "08747c0931418ad8e20199082d2c6acb70231ce079c0953d5b0d6b881223f7c5",
+      "files": {
+        "spi": "d878uv2/3.03/D878UVII_V3.03_20231218.spi",
+        "cdi": "d878uv2/3.03/D878UVII_V3.03_20231218.CDI",
+        "cdd": "d878uv2/3.03/D878UVII_V3.03_20231218.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.02N",
+      "date": "2023-04-21",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 922136
+        }
+      ],
+      "size": 922136,
+      "sha256": "824c8f8c0c633cb0a27dc1fe5af9fd20975102c418cc3c881a39c33bdb24e591",
+      "files": {
+        "spi": "d878uv2/3.02N/D878UVII_V3.02n_20230421.spi",
+        "cdi": "d878uv2/3.02N/D878UVII_V3.02n_20230421.CDI",
+        "cdd": "d878uv2/3.02N/D878UVII_V3.02n_20230421.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.01",
+      "date": "2022-11-04",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 915640
+        }
+      ],
+      "size": 915640,
+      "sha256": "b86eeb9c28264f5ca8996433e44b32ae66285902f5796d04e8b5142796f08e58",
+      "files": {
+        "spi": "d878uv2/3.01/D878UVII_V3.01_20221104.spi",
+        "cdi": "d878uv2/3.01/D878UVII_V3.01_20221104.CDI",
+        "cdd": "d878uv2/3.01/D878UVII_V3.01_20221104.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "3.00",
+      "date": "2022-09-24",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 913568
+        }
+      ],
+      "size": 913568,
+      "sha256": "449ed1d70cfa9d4a12bf88918063fb74ec2563299af1e7b03ace67540a2c001a",
+      "files": {
+        "spi": "d878uv2/3.00/D878UVII_V3.00_20220924.spi",
+        "cdi": "d878uv2/3.00/D878UVII_V3.00_20220924.CDI",
+        "cdd": "d878uv2/3.00/D878UVII_V3.00_20220924.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "2.05",
+      "date": "2022-04-08",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 910520
+        }
+      ],
+      "size": 910520,
+      "sha256": "1990668c95ae2b26d385488eebf0aaab4ef381bb9542303fd586a0622af746a1",
+      "files": {
+        "spi": "d878uv2/2.05/D878UVII_V2.05_20220408.spi",
+        "cdi": "d878uv2/2.05/D878UVII_V2.05_20220408.CDI",
+        "cdd": "d878uv2/2.05/D878UVII_V2.05_20220408.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "2.04",
+      "date": "2021-12-09",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 906540
+        }
+      ],
+      "size": 906540,
+      "sha256": "e7403c24ef0354a9a143ccba584d4780256edf31c0a28d28b905ea3d42107d55",
+      "files": {
+        "spi": "d878uv2/2.04/D878UVII_V2.04_20211209.spi",
+        "cdi": "d878uv2/2.04/D878UVII_V2.04_20211209.CDI",
+        "cdd": "d878uv2/2.04/D878UVII_V2.04_20211209.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "2.03",
+      "date": "2021-11-29",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 906504
+        }
+      ],
+      "size": 906504,
+      "sha256": "fd3de8cd32f500bbe57baf6ed66a7600ff2f02b0d32a8a6e14e19f28b2b865dc",
+      "files": {
+        "spi": "d878uv2/2.03/D878UVII_V2.03_20211129.spi",
+        "cdi": "d878uv2/2.03/D878UVII_V2.03_20211129.CDI",
+        "cdd": "d878uv2/2.03/D878UVII_V2.03_20211129.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "2.02N",
+      "date": "2021-05-26",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 892632
+        }
+      ],
+      "size": 892632,
+      "sha256": "c80072ca030f3a1b0e1b3b2c96569759570c33a769b03b4c9fd567bd0e234d91",
+      "files": {
+        "spi": "d878uv2/2.02N/D878UVII_V2.02N_20210526.spi",
+        "cdi": "d878uv2/2.02N/D878UVII_V2.02N_20210526.CDI",
+        "cdd": "d878uv2/2.02N/D878UVII_V2.02N_20210526.CDD"
+      }
+    },
+    {
+      "modelId": "d878uv2",
+      "version": "2.01B",
+      "date": "2021-04-10",
+      "firmwareModel": "D878UV2",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 885444
+        }
+      ],
+      "size": 885444,
+      "sha256": "8d1c10ea977984027c3b3c44b268b1fd45a11d88aed58daec8897b9c548d4754",
+      "files": {
+        "spi": "d878uv2/2.01B/D878UVII_V2.01b_20210410.spi",
+        "cdi": "d878uv2/2.01B/D878UVII_V2.01b_20210410.CDI",
+        "cdd": "d878uv2/2.01B/D878UVII_V2.01b_20210410.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.21",
+      "date": "2024-06-19",
+      "firmwareModel": "D578UVA",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1039760
+        }
+      ],
+      "size": 1039760,
+      "sha256": "dc31140121b65de112be863a4dd6d95464b19c1002fd66637201cef77add344d",
+      "files": {
+        "spi": "d578uv/1.21/D578UV_AT_V1.21_20240619.spi",
+        "cdi": "d578uv/1.21/D578UV_AT_V1.21_20240619.CDI",
+        "cdd": "d578uv/1.21/D578UV_AT_V1.21_20240619.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.21",
+      "date": "2024-06-19",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1020300
+        }
+      ],
+      "size": 1020300,
+      "sha256": "02b2a3b56bd57c7ada581eb52b9b6f41c5d51aaec1b068d37585efd58dff9c9a",
+      "files": {
+        "spi": "d578uv/1.21/D578UV_GD_V1.21_20240619.spi",
+        "cdi": "d578uv/1.21/D578UV_GD_V1.21_20240619.CDI",
+        "cdd": "d578uv/1.21/D578UV_GD_V1.21_20240619.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.20",
+      "date": "2024-01-30",
+      "firmwareModel": "D578UVA",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1039472
+        }
+      ],
+      "size": 1039472,
+      "sha256": "64583a33c80de7e0778f281f6946a7665e324a15659ada6f5baeceac64d23dbc",
+      "files": {
+        "spi": "d578uv/1.20/D578UV_AT_V1.20_20240130.spi",
+        "cdi": "d578uv/1.20/D578UV_AT_V1.20_20240130.CDI",
+        "cdd": "d578uv/1.20/D578UV_AT_V1.20_20240130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.20",
+      "date": "2024-01-30",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1020096
+        }
+      ],
+      "size": 1020096,
+      "sha256": "1cdf1817f8abbbee72901357316953aea28763e192fe35b913c82520db31453b",
+      "files": {
+        "spi": "d578uv/1.20/D578UV_GD_V1.20_20240130.spi",
+        "cdi": "d578uv/1.20/D578UV_GD_V1.20_20240130.CDI",
+        "cdd": "d578uv/1.20/D578UV_GD_V1.20_20240130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.19.2",
+      "date": "2023-09-23",
+      "firmwareModel": "D578UVA",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1024472
+        }
+      ],
+      "size": 1024472,
+      "sha256": "0d829070536526e0968aeff190892a8a198c87d3f951378cf7f83314d16d354a",
+      "files": {
+        "spi": "d578uv/1.19.2/D578UV_AT_V1.19.2_20230923.spi",
+        "cdi": "d578uv/1.19.2/D578UV_AT_V1.19.2_20230923.CDI",
+        "cdd": "d578uv/1.19.2/D578UV_AT_V1.19.2_20230923.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.19.2",
+      "date": "2023-09-23",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1020200
+        }
+      ],
+      "size": 1020200,
+      "sha256": "c4b4c8bd47c866862fd391f2a683b9c5d50983f3fa843f7a3a69b5e2e2aae43f",
+      "files": {
+        "spi": "d578uv/1.19.2/D578UV_GD_V1.19.2_20230923.spi",
+        "cdi": "d578uv/1.19.2/D578UV_GD_V1.19.2_20230923.CDI",
+        "cdd": "d578uv/1.19.2/D578UV_GD_V1.19.2_20230923.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.18",
+      "date": "2023-04-21",
+      "firmwareModel": "D578UVA",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1019748
+        }
+      ],
+      "size": 1019748,
+      "sha256": "25364ba857fb1672fe99b5de81690f61a219311f3231e9f77f4ea53132873f00",
+      "files": {
+        "spi": "d578uv/1.18/D578UV_AT_V1.18_20230421.spi",
+        "cdi": "d578uv/1.18/D578UV_AT_V1.18_20230421.CDI",
+        "cdd": "d578uv/1.18/D578UV_AT_V1.18_20230421.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.18",
+      "date": "2023-04-21",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1022156
+        }
+      ],
+      "size": 1022156,
+      "sha256": "eda5abf51afb0d05294c54cf1b3b6be43e9d64e97587fcc9dce26f0ff373a90e",
+      "files": {
+        "spi": "d578uv/1.18/D578UV_GD_V1.18_20230421.spi",
+        "cdi": "d578uv/1.18/D578UV_GD_V1.18_20230421.CDI",
+        "cdd": "d578uv/1.18/D578UV_GD_V1.18_20230421.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.17",
+      "date": "2022-11-30",
+      "firmwareModel": "D578UVA",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1013524
+        }
+      ],
+      "size": 1013524,
+      "sha256": "c8746098a3e88f9ca5c72aeede22e6cda56424474b82348be232dc39c00e7d6b",
+      "files": {
+        "spi": "d578uv/1.17/D578UV_AT_V1.17_20221130.spi",
+        "cdi": "d578uv/1.17/D578UV_AT_V1.17_20221130.CDI",
+        "cdd": "d578uv/1.17/D578UV_AT_V1.17_20221130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.17",
+      "date": "2022-11-30",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1019176
+        }
+      ],
+      "size": 1019176,
+      "sha256": "b863d88f2e8b42f65041cfff83b51bac2af68e72d1dca687ce0313bc299f80a4",
+      "files": {
+        "spi": "d578uv/1.17/D578UV_GD_V1.17_20221130.spi",
+        "cdi": "d578uv/1.17/D578UV_GD_V1.17_20221130.CDI",
+        "cdd": "d578uv/1.17/D578UV_GD_V1.17_20221130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.16",
+      "date": "2022-07-05",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1009844
+        }
+      ],
+      "size": 1009844,
+      "sha256": "b525ddc53d8c7aefece623836a60faba512879d4f18ff6f548cb8d5a53d169c5",
+      "files": {
+        "spi": "d578uv/1.16/D578UV_GD_V1.16_20220705.spi",
+        "cdi": "d578uv/1.16/D578UV_GD_V1.16_20220705.CDI",
+        "cdd": "d578uv/1.16/D578UV_GD_V1.16_20220705.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.15",
+      "date": "2021-11-29",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 999852
+        }
+      ],
+      "size": 999852,
+      "sha256": "98aeef4d850c23774ec38dc1391a931c97ed79a2280eefcb59abe7c69b0286db",
+      "files": {
+        "spi": "d578uv/1.15/D578UV_V1.15_20211129.spi",
+        "cdi": "d578uv/1.15/D578UV_V1.15_20211129.CDI",
+        "cdd": "d578uv/1.15/D578UV_V1.15_20211129.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.14",
+      "date": "2021-05-27",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 973164
+        }
+      ],
+      "size": 973164,
+      "sha256": "aeefee10e61157ca5a73360d43d6a3c6e1d821b569d32f06a67fae32df65ee30",
+      "files": {
+        "spi": "d578uv/1.14/D578UV_V1.14_20210527.spi",
+        "cdi": "d578uv/1.14/D578UV_V1.14_20210527.CDI",
+        "cdd": "d578uv/1.14/D578UV_V1.14_20210527.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.13",
+      "date": "2021-04-12",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 965080
+        }
+      ],
+      "size": 965080,
+      "sha256": "5d222ba1198d5bde0502af816a4cbdd5d1603552b7a27b78e5895f7c3caf6980",
+      "files": {
+        "spi": "d578uv/1.13/D578UV_V1.13_20210412.spi",
+        "cdi": "d578uv/1.13/D578UV_V1.13_20210412.CDI",
+        "cdd": "d578uv/1.13/D578UV_V1.13_20210412.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.11",
+      "date": "2020-09-17",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 892348
+        }
+      ],
+      "size": 892348,
+      "sha256": "850fbebb5409734506e8186a5a58bb6e4ba1ecbd016b37f20c9790a2e806b761",
+      "files": {
+        "spi": "d578uv/1.11/D578UV_V1.11_20200917.spi",
+        "cdi": "d578uv/1.11/D578UV_V1.11_20200917.CDI",
+        "cdd": "d578uv/1.11/D578UV_V1.11_20200917.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.10N",
+      "date": "2020-09-08",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 892104
+        }
+      ],
+      "size": 892104,
+      "sha256": "837c3c40edf2e9d303ce984c95cc82dc0eb9a42d312423d42e0bff6473781c7f",
+      "files": {
+        "spi": "d578uv/1.10N/D578UV_V1.10N_20200908.spi",
+        "cdi": "d578uv/1.10N/D578UV_V1.10N_20200908.CDI",
+        "cdd": "d578uv/1.10N/D578UV_V1.10N_20200908.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.09N",
+      "date": "2020-06-12",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 879960
+        }
+      ],
+      "size": 879960,
+      "sha256": "70c4399f12d7b845b840c3a6b06f398821da4a628027c6026d0c0f2b5f76597d",
+      "files": {
+        "spi": "d578uv/1.09N/D578UV_V1.09n_20200612.spi",
+        "cdi": "d578uv/1.09N/D578UV_V1.09n_20200612.CDI",
+        "cdd": "d578uv/1.09N/D578UV_V1.09n_20200612.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.07",
+      "date": "2020-04-25",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 876896
+        }
+      ],
+      "size": 876896,
+      "sha256": "cb9eb7e9be30b4445059089f61f171fd914268a23d7e727bb08fb81771722b20",
+      "files": {
+        "spi": "d578uv/1.07/D578UV_V1.07_20200425.spi",
+        "cdi": "d578uv/1.07/D578UV_V1.07_20200425.CDI",
+        "cdd": "d578uv/1.07/D578UV_V1.07_20200425.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.06",
+      "date": "2020-01-16",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 850556
+        }
+      ],
+      "size": 850556,
+      "sha256": "1aed22a9d74b63e385ed18b65ab531cda52a04f107ef88123917ff2fc23f698e",
+      "files": {
+        "spi": "d578uv/1.06/D578UV_V1.06_20200116.spi",
+        "cdi": "d578uv/1.06/D578UV_V1.06_20200116.CDI",
+        "cdd": "d578uv/1.06/D578UV_V1.06_20200116.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv",
+      "version": "1.05",
+      "date": "2019-12-25",
+      "firmwareModel": "D578UV",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 850208
+        }
+      ],
+      "size": 850208,
+      "sha256": "a6a50d35b6b22c8c1770c62d7565f5acda4ed58d2e5851472517d45312329560",
+      "files": {
+        "spi": "d578uv/1.05/D578UV_V1.05_20191225.spi",
+        "cdi": "d578uv/1.05/D578UV_V1.05_20191225.CDI",
+        "cdd": "d578uv/1.05/D578UV_V1.05_20191225.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.08",
+      "date": "2024-06-19",
+      "firmwareModel": "578UV2A",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1040008
+        }
+      ],
+      "size": 1040008,
+      "sha256": "146b7cdada21912295992b1b4596c2ebf3d87710d129e5124e9847f067327f34",
+      "files": {
+        "spi": "d578uv2/2.08/D578UV2_AT_V2.08_20240619.spi",
+        "cdi": "d578uv2/2.08/D578UV2_AT_V2.08_20240619.CDI",
+        "cdd": "d578uv2/2.08/D578UV2_AT_V2.08_20240619.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.08",
+      "date": "2024-06-19",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1020408
+        }
+      ],
+      "size": 1020408,
+      "sha256": "8efad950169f332c8c60d340722a2ceee84ce41d7d8fabb0ebf19482973ceca2",
+      "files": {
+        "spi": "d578uv2/2.08/D578UV2_GD_V2.08_20240619.spi",
+        "cdi": "d578uv2/2.08/D578UV2_GD_V2.08_20240619.CDI",
+        "cdd": "d578uv2/2.08/D578UV2_GD_V2.08_20240619.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.07",
+      "date": "2024-01-30",
+      "firmwareModel": "578UV2A",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1039728
+        }
+      ],
+      "size": 1039728,
+      "sha256": "2879c4a411b46efa16d7172577baf07af6c54dacb68025505fa979942a083284",
+      "files": {
+        "spi": "d578uv2/2.07/D578UV2_AT_V2.07_20240130.spi",
+        "cdi": "d578uv2/2.07/D578UV2_AT_V2.07_20240130.CDI",
+        "cdd": "d578uv2/2.07/D578UV2_AT_V2.07_20240130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.07",
+      "date": "2024-01-30",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1020212
+        }
+      ],
+      "size": 1020212,
+      "sha256": "3aa4429e9bc374476ce340f2cde1a660066ba636babf682be9acb4f8b5437f31",
+      "files": {
+        "spi": "d578uv2/2.07/D578UV2_GD_V2.07_20240130.spi",
+        "cdi": "d578uv2/2.07/D578UV2_GD_V2.07_20240130.CDI",
+        "cdd": "d578uv2/2.07/D578UV2_GD_V2.07_20240130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.06.2",
+      "date": "2023-09-23",
+      "firmwareModel": "578UV2A",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1024820
+        }
+      ],
+      "size": 1024820,
+      "sha256": "9a8d373e4de2816728d7b19219f0b3254506e70a65fb99dab1351d05f0534c72",
+      "files": {
+        "spi": "d578uv2/2.06.2/D578UV2_AT_V2.06.2_20230923.spi",
+        "cdi": "d578uv2/2.06.2/D578UV2_AT_V2.06.2_20230923.CDI",
+        "cdd": "d578uv2/2.06.2/D578UV2_AT_V2.06.2_20230923.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.06.2",
+      "date": "2023-09-23",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1020312
+        }
+      ],
+      "size": 1020312,
+      "sha256": "da1c5adfd72dec49a05ca06a87866d926aacb680af31f2701a0dff6a745140c9",
+      "files": {
+        "spi": "d578uv2/2.06.2/D578UV2_GD_V2.06.2_20230923.spi",
+        "cdi": "d578uv2/2.06.2/D578UV2_GD_V2.06.2_20230923.CDI",
+        "cdd": "d578uv2/2.06.2/D578UV2_GD_V2.06.2_20230923.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.05",
+      "date": "2023-04-21",
+      "firmwareModel": "578UV2A",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1019900
+        }
+      ],
+      "size": 1019900,
+      "sha256": "db1b5045b7c12f9a91dcc64ed2840ce055376b48033afa66bc3d8762bbad4c0c",
+      "files": {
+        "spi": "d578uv2/2.05/D578UV2_AT_V2.05_20230421.spi",
+        "cdi": "d578uv2/2.05/D578UV2_AT_V2.05_20230421.CDI",
+        "cdd": "d578uv2/2.05/D578UV2_AT_V2.05_20230421.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.05",
+      "date": "2023-04-21",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1022260
+        }
+      ],
+      "size": 1022260,
+      "sha256": "1919cc1423596fd523d3f9f669f8c612699277995436f55ce222aabcd7b8dcd6",
+      "files": {
+        "spi": "d578uv2/2.05/D578UV2_GD_V2.05_20230421.spi",
+        "cdi": "d578uv2/2.05/D578UV2_GD_V2.05_20230421.CDI",
+        "cdd": "d578uv2/2.05/D578UV2_GD_V2.05_20230421.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.04",
+      "date": "2022-11-30",
+      "firmwareModel": "578UV2A",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1013668
+        }
+      ],
+      "size": 1013668,
+      "sha256": "910c7b38dedc3649a86ed66222b89f5cb8efdf29a59a6a3b539a2f31b246f7ba",
+      "files": {
+        "spi": "d578uv2/2.04/D578UV2_AT_V2.04_20221130.spi",
+        "cdi": "d578uv2/2.04/D578UV2_AT_V2.04_20221130.CDI",
+        "cdd": "d578uv2/2.04/D578UV2_AT_V2.04_20221130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.04",
+      "date": "2022-11-30",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1019272
+        }
+      ],
+      "size": 1019272,
+      "sha256": "cb4e72299a7d50588e979039e334fc15fa0fe4fedab69bd03c16c2433202143b",
+      "files": {
+        "spi": "d578uv2/2.04/D578UV2_GD_V2.04_20221130.spi",
+        "cdi": "d578uv2/2.04/D578UV2_GD_V2.04_20221130.CDI",
+        "cdd": "d578uv2/2.04/D578UV2_GD_V2.04_20221130.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.03",
+      "date": "2022-07-05",
+      "firmwareModel": "578UV2A",
+      "mcu": "at32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1003544
+        }
+      ],
+      "size": 1003544,
+      "sha256": "e46bf20c9a51d1f7343037f6e3576d284bae012d571347a6707040e2d69c3639",
+      "files": {
+        "spi": "d578uv2/2.03/D578UV2_AT_V2.03_20220705.spi",
+        "cdi": "d578uv2/2.03/D578UV2_AT_V2.03_20220705.CDI",
+        "cdd": "d578uv2/2.03/D578UV2_AT_V2.03_20220705.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.03",
+      "date": "2022-07-05",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 1009960
+        }
+      ],
+      "size": 1009960,
+      "sha256": "b432e1d644b9cdc19dc9fcc940a8cf6210137140a499d9e62958f5850c4936e5",
+      "files": {
+        "spi": "d578uv2/2.03/D578UV2_GD_V2.03_20220705.spi",
+        "cdi": "d578uv2/2.03/D578UV2_GD_V2.03_20220705.CDI",
+        "cdd": "d578uv2/2.03/D578UV2_GD_V2.03_20220705.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.02",
+      "date": "2021-11-29",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 999948
+        }
+      ],
+      "size": 999948,
+      "sha256": "1534a38826a5136e09592639b293f31fab2429715884134b1f884f30babeb913",
+      "files": {
+        "spi": "d578uv2/2.02/D578UV2_V2.02_20211129.spi",
+        "cdi": "d578uv2/2.02/D578UV2_V2.02_20211129.CDI",
+        "cdd": "d578uv2/2.02/D578UV2_V2.02_20211129.CDD"
+      }
+    },
+    {
+      "modelId": "d578uv2",
+      "version": "2.01",
+      "date": "2021-05-27",
+      "firmwareModel": "D578UV2",
+      "mcu": "gd32",
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134242304,
+          "size": 973172
+        }
+      ],
+      "size": 973172,
+      "sha256": "42ffcf7547bfdcf019dd56afc31d4bee9a505f4cc98b2567fe02b16c12298cb5",
+      "files": {
+        "spi": "d578uv2/2.01/D578UV2_V2.01_20210527.spi",
+        "cdi": "d578uv2/2.01/D578UV2_V2.01_20210527.CDI",
+        "cdd": "d578uv2/2.01/D578UV2_V2.01_20210527.CDD"
+      }
+    },
+    {
+      "modelId": "d168uv",
+      "version": "1.07",
+      "date": "2025-06-06",
+      "firmwareModel": "D168UV",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 110796
+        },
+        {
+          "address": 134348800,
+          "size": 825820
+        }
+      ],
+      "size": 936616,
+      "sha256": "d4a1210dad490ff9ffbba1a9289d0b1a08c81b1e5814a64d1b78f587fcc5b520",
+      "files": {
+        "spi": "d168uv/1.07/DL168UV_V1.07_20250606.spi",
+        "cdi": "d168uv/1.07/DL168UV_V1.07_20250606.CDI",
+        "cdd": "d168uv/1.07/DL168UV_V1.07_20250606.CDD"
+      }
+    },
+    {
+      "modelId": "d168uv",
+      "version": "1.06",
+      "date": "2025-04-29",
+      "firmwareModel": "D168UV",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 110800
+        },
+        {
+          "address": 134348800,
+          "size": 825236
+        }
+      ],
+      "size": 936036,
+      "sha256": "e609fade9e19030b1d2e524453db9cd55adef0cf9b7cf47ef22cb6b37ae247ec",
+      "files": {
+        "spi": "d168uv/1.06/DL168UV_V1.06_20250429.spi",
+        "cdi": "d168uv/1.06/DL168UV_V1.06_20250429.CDI",
+        "cdd": "d168uv/1.06/DL168UV_V1.06_20250429.CDD"
+      }
+    },
+    {
+      "modelId": "d168uv",
+      "version": "1.05",
+      "date": "2025-01-23",
+      "firmwareModel": "D168UV",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 110812
+        },
+        {
+          "address": 134348800,
+          "size": 824380
+        }
+      ],
+      "size": 935192,
+      "sha256": "19284f03a9f5926f4da998c2ffe609ca01ab8c9992d862a848be2f3788246e6a",
+      "files": {
+        "spi": "d168uv/1.05/DL168UV_V1.05_20250123.spi",
+        "cdi": "d168uv/1.05/DL168UV_V1.05_20250123.CDI",
+        "cdd": "d168uv/1.05/DL168UV_V1.05_20250123.CDD"
+      }
+    },
+    {
+      "modelId": "d168uv",
+      "version": "1.04",
+      "date": "2024-11-23",
+      "firmwareModel": "D168UV",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 110732
+        },
+        {
+          "address": 134348800,
+          "size": 866020
+        }
+      ],
+      "size": 976752,
+      "sha256": "5a57699fa0cfc2ebbafa1a18dd96b07273ff679d71d22079e980ac24713987a8",
+      "files": {
+        "spi": "d168uv/1.04/DL168UV_V1.04_20241123.spi",
+        "cdi": "d168uv/1.04/DL168UV_V1.04_20241123.CDI",
+        "cdd": "d168uv/1.04/DL168UV_V1.04_20241123.CDD"
+      }
+    },
+    {
+      "modelId": "d168uv",
+      "version": "1.03",
+      "date": "2024-11-16",
+      "firmwareModel": "D168UV",
+      "mcu": null,
+      "hwVersion": "V100",
+      "segments": [
+        {
+          "address": 134234112,
+          "size": 110720
+        },
+        {
+          "address": 134348800,
+          "size": 865820
+        }
+      ],
+      "size": 976540,
+      "sha256": "0dde17282f2b5132876f7b5b8d66fc50c15c323b268380e9a23a4300256af48b",
+      "files": {
+        "spi": "d168uv/1.03/DL168UV_V1.03_20241116.spi",
+        "cdi": "d168uv/1.03/DL168UV_V1.03_20241116.CDI",
+        "cdd": "d168uv/1.03/DL168UV_V1.03_20241116.CDD"
       }
     }
   ]

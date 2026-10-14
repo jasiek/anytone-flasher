@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { decodeDump, encodeDump, readCodeplug, type CodeplugRegion } from "../src/codeplug/dump";
-import { D878UV_CODEPLUG } from "../src/codeplug/d878uv";
+import { D878UV_CODEPLUG, D878UV2_CODEPLUG } from "../src/codeplug/d878uv";
+import { MODELS } from "../src/models";
 import { buildReadRequest, parseReadReply, ProgramSession } from "../src/protocol/program";
 import { hex } from "../src/protocol/anytone";
 import { MockProgramRadio } from "./mock-program-radio";
@@ -69,19 +70,28 @@ describe("codeplug backup", () => {
   });
 });
 
-describe("D878UV region map", () => {
-  it("covers qdmr's 130 regions plus 5 extra areas", () => {
+describe("codeplug region maps", () => {
+  it("D878UV covers qdmr's 130 regions plus 5 extra areas", () => {
     expect(D878UV_CODEPLUG.length).toBe(135);
     expect(D878UV_CODEPLUG.reduce((n, r) => n + r.length, 0)).toBe(2_232_608);
   });
 
-  it("is sorted, aligned and non-overlapping", () => {
-    let end = 0;
-    for (const r of D878UV_CODEPLUG) {
-      expect(r.address % 16, r.name).toBe(0);
-      expect(r.length % 16, r.name).toBe(0);
-      expect(r.address, r.name).toBeGreaterThanOrEqual(end);
-      end = r.address + r.length;
-    }
+  it("D878UVII differs from D878UV only in the contact ID map address", () => {
+    const diff = D878UV2_CODEPLUG.filter((r, i) => r.address !== D878UV_CODEPLUG[i]!.address);
+    expect(diff).toEqual([{ name: "contact ID map", address: 0x04800000, length: 0x13890 }]);
   });
+
+  it.each(MODELS.filter((m) => m.codeplug).map((m) => [m.id, m.codeplug!] as const))(
+    "%s map is sorted, aligned and non-overlapping",
+    (_, regions) => {
+      let end = 0;
+      for (const r of regions) {
+        expect(r.address % 16, r.name).toBe(0);
+        expect(r.length % 16, r.name).toBe(0);
+        expect(r.length, r.name).toBeGreaterThan(0);
+        expect(r.address, r.name).toBeGreaterThanOrEqual(end);
+        end = r.address + r.length;
+      }
+    },
+  );
 });

@@ -1,6 +1,6 @@
 import type { CodeplugRegion } from "./dump";
 
-// AT-D878UV (V1) codeplug memory map for the raw backup.
+// AT-D878UV (V1) and D878UVII codeplug memory maps for the raw backup.
 //
 // Taken from qdmr (lib/d868uv_codeplug.*, lib/d878uv_codeplug.*): every
 // element qdmr reads when downloading a codeplug or before uploading one,
@@ -93,3 +93,10 @@ export const D878UV_CODEPLUG: CodeplugRegion[] = [
   { name: "local info", address: 0x02fa0000, length: 0x100 },
   { name: "contact ID map", address: 0x04340000, length: 0x13890 },
 ];
+
+// The D878UVII layout is identical except for the contact ID map, which moved
+// to make room for the larger (500k) callsign database index
+// (qdmr d878uv2_codeplug.hh: Offset::contactIdTable() = 0x04800000).
+export const D878UV2_CODEPLUG: CodeplugRegion[] = D878UV_CODEPLUG.map((r) =>
+  r.name === "contact ID map" ? { ...r, address: 0x04800000 } : r,
+);

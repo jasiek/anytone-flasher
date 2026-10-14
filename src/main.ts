@@ -1,6 +1,6 @@
 import "./style.css";
-import { loadFirmware, loadManifest, type FirmwareEntry } from "./firmware/catalog";
-import { MODELS, type RadioModel } from "./models";
+import { groupReleases, loadFirmware, loadManifest, selectBuild, type FirmwareRelease } from "./firmware/catalog";
+import { MCU_LABEL, MODELS, type RadioModel } from "./models";
 import { dumpFileName, downloadFile, encodeDump, readCodeplug, totalSize, type DumpProgress } from "./codeplug/dump";
 import { FlashError, flashFirmware, hex, type FlashPhase, type FlashProgress } from "./protocol/anytone";
 import { ProgramSession } from "./protocol/program";
@@ -36,14 +36,14 @@ const ui = {
 };
 
 const state: {
-  firmware: FirmwareEntry[];
+  releases: FirmwareRelease[];
   model: RadioModel | null;
-  selected: FirmwareEntry | null;
+  selected: FirmwareRelease | null;
   port: SerialPort | null;
   busy: boolean;
   abort: AbortController | null;
   showOlder: boolean;
-} = { firmware: [], model: null, selected: null, port: null, busy: false, abort: null, showOlder: false };
+} = { releases: [], model: null, selected: null, port: null, busy: false, abort: null, showOlder: false };
 
 /** Releases listed before the "older versions" toggle. */
 const RECENT_COUNT = 5;
@@ -101,7 +101,7 @@ function selectModel(id: string) {
 }
 
 function renderFirmware() {
-  const list = state.firmware.filter((f) => f.modelId === state.model?.id);
+  const list = state.releases.filter((f) => f.modelId === state.model?.id);
   if (!state.selected || !list.includes(state.selected)) state.selected = list[0] ?? null;
   if (!list.length) {
     ui.firmwareList.innerHTML = `<p class="muted">No firmware bundled for this model.</p>`;
@@ -126,7 +126,16 @@ function renderFirmware() {
       ver.textContent = `V${f.version}`;
       const meta = document.createElement("span");
       meta.className = "meta";
-      meta.textContent = [f.date, fmtBytes(f.size), `HW ${f.hwVersion}`].filter(Boolean).join(" · ");
+      const b = f.builds[0]!;
+      const mcus = f.builds.map((x) => x.mcu && MCU_LABEL[x.mcu]).filter(Boolean);
+      meta.textContent = [
+        f.date,
+        f.builds.length === 1 ? fmtBytes(b.size) : null,
+        mcus.length ? `${mcus.join(" + ")}${mcus.length === 1 ? " only" : ""}` : null,
+        `HW ${b.hwVersion}`,
+      ]
+        .filter(Boolean)
+        .join(" · ");
       label.append(input, ver);
       if (i === 0) {
         const tag = document.createElement("span");
@@ -135,7 +144,7 @@ function renderFirmware() {
         label.append(tag);
       }
       label.append(meta);
-      if (f.notes) label.title = f.notes;
+      if (b.notes) label.title = b.notes;
       return label;
     });
   const hidden = list.length - visible.length;
@@ -265,9 +274,9 @@ async function backupCodeplug(model: RadioModel, port: SerialPort, signal: Abort
     const session = await ProgramSession.open(transport);
     const { ident } = session;
     log(`Radio reports model ${ident.model}, hardware ${ident.hwVersion} (${hex(ident.raw)})`);
-    if (ident.model !== model.firmwareModel || !model.hwVersions.includes(ident.hwVersion)) {
+    if (ident.model !== model.identModel || !model.hwVersions.includes(ident.hwVersion)) {
       await session.close();
-      throw new FlashError(`Radio is a ${ident.model} ${ident.hwVersion}, not a ${model.name}`);
+      throw new FlashError(`The radio reports ${ident.model} ${ident.hwVersion}, but ${model.name} is selected`);
     }
     log(`Reading ${regions.length} regions, ${fmtBytes(totalSize(regions))}…`);
     const startedAt = performance.now();
@@ -287,11 +296,17 @@ async function backupCodeplug(model: RadioModel, port: SerialPort, signal: Abort
   }
 }
 
-async function flashImage(model: RadioModel, selected: FirmwareEntry, port: SerialPort, signal: AbortSignal) {
+async function flashImage(model: RadioModel, release: FirmwareRelease, port: SerialPort, signal: AbortSignal) {
   resetProgress("Loading firmware…");
-  log(`Loading ${model.name} firmware V${selected.version}…`);
-  const image = await loadFirmware(selected);
-  log(`Firmware OK: ${image.model} HW ${image.hwVersion}, ${image.data.length} bytes, start 0x${image.startAddress.toString(16)}`);
+  const build = selectBuild(release, port.getInfo().usbVendorId);
+  log(
+    `Loading ${model.name} firmware V${release.version}` +
+      (build.mcu ? ` (${MCU_LABEL[build.mcu]} build, chosen from the port's USB ID)` : "") +
+      "…",
+  );
+  const image = await loadFirmware(build);
+  const where = image.segments.map((s) => `0x${s.address.toString(16)}`).join(", ");
+  log(`Firmware OK: ${image.model} HW ${image.hwVersion}, ${image.size} bytes at ${where}`);
   if (image.trailingBytes) log(`Ignoring ${image.trailingBytes} trailing bytes past the declared image size.`);
 
   ui.phase.textContent = "Opening port…";
@@ -301,6 +316,7 @@ async function flashImage(model: RadioModel, selected: FirmwareEntry, port: Seri
     const startedAt = performance.now();
     await flashFirmware(transport, image, {
       signal,
+      identModel: model.identModel,
       onLog: log,
       onProgress: (p) => renderProgress(p, startedAt),
       onIdent: (id) => {
@@ -329,6 +345,12 @@ async function run(mode: "flash" | "backup-only") {
 
   let stage: "backup" | "flash" = backup ? "backup" : "flash";
   try {
+    // Fail before the backup and power cycle if this radio's MCU has no build.
+    if (mode === "flash") {
+      stage = "flash";
+      selectBuild(selected!, port.getInfo().usbVendorId);
+      stage = backup ? "backup" : "flash";
+    }
     let saved: string | null = null;
     if (backup) {
       saved = await backupCodeplug(model, port, signal);
@@ -338,8 +360,7 @@ async function run(mode: "flash" | "backup-only") {
       }
       await waitForContinue(
         `<strong>Backup saved as <code>${escapeHtml(saved)}</code>.</strong>
-         <p>Now switch the radio off, hold <kbd>${model.updateModeKeys}</kbd> and switch it on to enter update
-         mode. Then press Continue.</p>`,
+         <p>Now restart the radio in update mode. ${escapeHtml(model.updateMode)} Then press Continue.</p>`,
         signal,
       );
       port = await reacquirePort(port);
@@ -351,8 +372,7 @@ async function run(mode: "flash" | "backup-only") {
     showResult(
       "ok",
       `<strong>Firmware transferred.</strong>
-       <p>Switch the radio off, then hold <kbd>${model.installKeys}</kbd> while switching it on to
-       start the installer and confirm the update on the radio. Afterwards, write your codeplug back with the CPS
+       <p>To install it: ${escapeHtml(model.install)} Afterwards, write your codeplug back with the CPS
        version that matches V${selected!.version}.</p>` +
         (saved ? `<p>Your backup is in <code>${escapeHtml(saved)}</code>.</p>` : ""),
     );
@@ -368,8 +388,8 @@ async function run(mode: "flash" | "backup-only") {
            <p>Nothing was flashed. Switch the radio on normally (no keys held) and try again, or untick the backup
            option if you have saved the codeplug with the CPS.</p>`
         : `<strong>Flashing failed:</strong> ${escapeHtml(msg)}
-           <p>The radio's bootloader is untouched until you run the installer, so you can power-cycle it into
-           update mode (<kbd>${model.updateModeKeys}</kbd>) and try again.</p>`,
+           <p>The radio's bootloader is untouched until you run the installer, so you can restart it in
+           update mode and try again. ${escapeHtml(model.updateMode)}</p>`,
     );
     ui.logWrap.open = true;
   } finally {
@@ -381,16 +401,16 @@ async function run(mode: "flash" | "backup-only") {
 }
 
 function renderConnectSteps() {
-  const keys = escapeHtml(state.model?.updateModeKeys ?? "");
+  const updateMode = escapeHtml(state.model?.updateMode ?? "");
   const steps = ui.backup.checked
     ? [
         "Connect the programming cable and switch the radio on normally.",
         "Pick its serial port. The codeplug is read and saved first.",
-        `When asked, restart it in update mode: hold <kbd>${keys}</kbd> while switching on.`,
+        `When asked, restart it in firmware-update mode: ${updateMode}`,
       ]
     : [
-        "Switch the radio off and connect the programming cable.",
-        `Hold <kbd>${keys}</kbd> and switch the radio on. It boots into firmware-update mode.`,
+        "Connect the programming cable.",
+        `Start the radio in firmware-update mode: ${updateMode}`,
         "Pick its serial port.",
       ];
   ui.connectSteps.innerHTML = steps.map((s) => `<li>${s}</li>`).join("");
@@ -425,7 +445,7 @@ async function init() {
   });
 
   try {
-    state.firmware = (await loadManifest()).firmware;
+    state.releases = groupReleases((await loadManifest()).firmware);
   } catch (e) {
     showResult("danger", escapeHtml(e instanceof Error ? e.message : String(e)));
   }

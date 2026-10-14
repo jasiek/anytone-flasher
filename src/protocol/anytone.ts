@@ -1,10 +1,10 @@
-// AnyTone bootloader firmware-update protocol (D868UV/D878UV family).
+// AnyTone bootloader firmware-update protocol (D878UV, D878UVII, D578UV, D168UV, …).
 //
 // The radio must be powered on in update mode first (D878UV: hold PF3 + PTT).
 //
 //   > "UPDATE"                        < ACK
 //   > 0x02                            < ident, e.g. "ID878UV\0" BF "V100" ... ACK
-//   > 0x01 addr[4 LE] data[32] sum[2 LE] 0x06   < ACK    (repeated for the whole .CDD)
+//   > 0x01 addr[4 LE] data[32] sum[2 LE] 0x06   < ACK    (repeated for each image segment)
 //   > 0x18                            < ACK
 //
 // `sum` is the 16-bit sum of the address and data bytes. The last block is
@@ -49,13 +49,18 @@ export interface DeviceIdent {
   raw: Uint8Array;
 }
 
-/** Parses the reply to CMD_IDENT: "I" + model[6] + 0x00 + band + hw[4] + ... + ACK. */
+/**
+ * Parses the reply to CMD_IDENT: "I" + model[7, NUL-padded] + band + hw[4] + ... + ACK,
+ * e.g. "ID878UV\0" or "ID878UV2" followed by the band byte. The model must be
+ * compared in full: "D878UV2" (UVII) must not match "D878UV".
+ */
 export function parseIdent(raw: Uint8Array): DeviceIdent {
-  if (raw.length < 13 || raw[raw.length - 1] !== ACK) {
+  if (raw.length < 13 || raw[0] !== 0x49 || raw[raw.length - 1] !== ACK) {
     throw new FlashError(`Unexpected identification reply: ${hex(raw) || "(nothing)"}`);
   }
-  const text = (a: number, b: number) => String.fromCharCode(...raw.subarray(a, b));
-  return { model: text(1, 7), hwVersion: text(9, 13), band: raw[8]!, raw };
+  const text = (a: number, b: number) =>
+    String.fromCharCode(...raw.subarray(a, b)).replace(/\0[\s\S]*$/, "").trimEnd();
+  return { model: text(1, 8), hwVersion: text(9, 13), band: raw[8]!, raw };
 }
 
 export class FlashError extends Error {
@@ -76,6 +81,11 @@ export interface FlashProgress {
 export interface FlashOptions {
   onProgress?: (p: FlashProgress) => void;
   onLog?: (msg: string) => void;
+  /**
+   * Model the radio must report. Defaults to the firmware's model tag; differs
+   * for MCU-variant builds (e.g. firmware "D578UVA" for a radio reporting "D578UV").
+   */
+  identModel?: string;
   /** Called after identification; throw to reject the radio. */
   onIdent?: (ident: DeviceIdent) => void;
   signal?: AbortSignal;
@@ -94,12 +104,13 @@ export async function flashFirmware(
     onProgress = () => {},
     onLog = () => {},
     onIdent,
+    identModel = image.model,
     signal,
     maxAttempts = 3,
     ackTimeoutMs = 1000,
     handshakeTimeoutMs = 2000,
   } = opts;
-  const total = image.data.length;
+  const total = image.size;
   let sent = 0;
   let retries = 0;
   const progress = (phase: FlashPhase) => onProgress({ phase, bytesSent: sent, totalBytes: total, retries });
@@ -127,8 +138,8 @@ export async function flashFirmware(
   await t.write(Uint8Array.of(CMD_IDENT));
   const ident = parseIdent(await t.read(handshakeTimeoutMs, 50));
   onLog(`Radio reports model ${ident.model}, hardware ${ident.hwVersion} (${hex(ident.raw)})`);
-  if (ident.model !== image.model) {
-    throw new FlashError(`Radio is a ${ident.model}, firmware is for ${image.model}`);
+  if (ident.model !== identModel) {
+    throw new FlashError(`Radio is a ${ident.model}, firmware is for ${identModel}`);
   }
   if (ident.hwVersion !== image.hwVersion) {
     throw new FlashError(`Radio hardware ${ident.hwVersion} does not match firmware hardware ${image.hwVersion}`);
@@ -136,34 +147,37 @@ export async function flashFirmware(
   onIdent?.(ident);
   checkAbort();
 
-  // 3. Stream the image.
-  onLog(`Writing ${total} bytes from 0x${image.startAddress.toString(16)}…`);
+  // 3. Stream the image, segment by segment.
   progress("transfer");
   let lastReport = 0;
-  for (let off = 0; off < total; off += BLOCK_SIZE) {
-    checkAbort();
-    const packet = buildWritePacket(image.startAddress + off, image.data.subarray(off, off + BLOCK_SIZE));
-    for (let attempt = 1; ; attempt++) {
-      await t.write(packet);
-      const resp = await t.read(ackTimeoutMs);
-      if (resp.length === 1 && resp[0] === ACK) break;
-      if (attempt >= maxAttempts) {
-        throw new FlashError(
-          `Block at 0x${(image.startAddress + off).toString(16)} failed after ${attempt} attempts ` +
-            `(last reply: ${hex(resp) || "timeout"})`,
-        );
+  for (const seg of image.segments) {
+    onLog(`Writing ${seg.data.length} bytes at 0x${seg.address.toString(16)}…`);
+    for (let off = 0; off < seg.data.length; off += BLOCK_SIZE) {
+      checkAbort();
+      const address = seg.address + off;
+      const packet = buildWritePacket(address, seg.data.subarray(off, off + BLOCK_SIZE));
+      for (let attempt = 1; ; attempt++) {
+        await t.write(packet);
+        const resp = await t.read(ackTimeoutMs);
+        if (resp.length === 1 && resp[0] === ACK) break;
+        if (attempt >= maxAttempts) {
+          throw new FlashError(
+            `Block at 0x${address.toString(16)} failed after ${attempt} attempts ` +
+              `(last reply: ${hex(resp) || "timeout"})`,
+          );
+        }
+        retries++;
+        onLog(`Block 0x${address.toString(16)}: ${hex(resp) || "timeout"}, retrying`);
+        // Let a late ACK land before discarding it so it isn't taken as the retry's ACK.
+        await t.read(50, 50);
+        t.flushInput();
       }
-      retries++;
-      onLog(`Block 0x${(image.startAddress + off).toString(16)}: ${hex(resp) || "timeout"}, retrying`);
-      // Let a late ACK land before discarding it so it isn't taken as the retry's ACK.
-      await t.read(50, 50);
-      t.flushInput();
-    }
-    sent = Math.min(off + BLOCK_SIZE, total);
-    const now = Date.now();
-    if (now - lastReport > 50 || sent === total) {
-      lastReport = now;
-      progress("transfer");
+      sent += Math.min(BLOCK_SIZE, seg.data.length - off);
+      const now = Date.now();
+      if (now - lastReport > 50 || sent === total) {
+        lastReport = now;
+        progress("transfer");
+      }
     }
   }
 

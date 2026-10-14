@@ -57,7 +57,9 @@ export class MockRadio implements Transport {
         p.shift();
         const model = this.opts.model ?? "D878UV";
         const hw = this.opts.hwVersion ?? "V100";
-        this.reply(...[..."I" + model].map((c) => c.charCodeAt(0)), 0, 0, ...[...hw].map((c) => c.charCodeAt(0)), 0, 0, 0, ACK);
+        // "I" + model (NUL-padded to 7) + band + hw[4] + 3 bytes + ACK
+        const id = ("I" + model).padEnd(8, "\0");
+        this.reply(...[...id].map((c) => c.charCodeAt(0)), 0, ...[...hw].map((c) => c.charCodeAt(0)), 0, 0, 0, ACK);
       } else if (p[0] === 0x18) {
         p.shift();
         this.ended = true;

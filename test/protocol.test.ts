@@ -27,21 +27,42 @@ describe("parseIdent", () => {
     const id = parseIdent(fromHex("49443837385556000056313030000006"));
     expect(id).toMatchObject({ model: "D878UV", hwVersion: "V100", band: 0 });
   });
+
+  it("reads a 7-character model in full", () => {
+    // "ID878UV2" + band 0 + "V100" ... ACK
+    const id = parseIdent(fromHex("49443837385556320056313030000006"));
+    expect(id.model).toBe("D878UV2");
+    expect(id.hwVersion).toBe("V100");
+  });
 });
 
-function image(size: number): FirmwareImage {
-  const data = new Uint8Array(size);
-  for (let i = 0; i < size; i++) data[i] = (i * 7 + 3) & 0xff;
-  return { model: "D878UV", hwVersion: "V100", startAddress: 0x08004000, data, trailingBytes: 0 };
+function image(size: number, segments = [0x08004000]): FirmwareImage {
+  const per = Math.ceil(size / segments.length);
+  return {
+    model: "D878UV",
+    hwVersion: "V100",
+    segments: segments.map((address, s) => {
+      const len = Math.min(per, size - s * per);
+      const data = new Uint8Array(len);
+      for (let i = 0; i < len; i++) data[i] = (i * 7 + s * 13 + 3) & 0xff;
+      return { address, data };
+    }),
+    size,
+    trailingBytes: 0,
+  };
 }
 
 function expectFlashed(radio: MockRadio, img: FirmwareImage) {
-  for (let i = 0; i < img.data.length; i++) {
-    if (radio.flash.get(img.startAddress + i) !== img.data[i]) throw new Error(`byte ${i} differs`);
+  let expectedSize = 0;
+  for (const seg of img.segments) {
+    for (let i = 0; i < seg.data.length; i++) {
+      if (radio.flash.get(seg.address + i) !== seg.data[i]) throw new Error(`byte 0x${(seg.address + i).toString(16)} differs`);
+    }
+    const padded = Math.ceil(seg.data.length / 32) * 32;
+    for (let i = seg.data.length; i < padded; i++) expect(radio.flash.get(seg.address + i)).toBe(0);
+    expectedSize += padded;
   }
-  const padded = Math.ceil(img.data.length / 32) * 32;
-  for (let i = img.data.length; i < padded; i++) expect(radio.flash.get(img.startAddress + i)).toBe(0);
-  expect(radio.flash.size).toBe(padded);
+  expect(radio.flash.size).toBe(expectedSize);
 }
 
 describe("flashFirmware", () => {
@@ -60,7 +81,28 @@ describe("flashFirmware", () => {
     expectFlashed(radio, img);
     expect(radio.ended).toBe(true);
     expect(phases).toEqual(["handshake", "identify", "transfer", "finish", "done"]);
-    expect(last).toBe(img.data.length);
+    expect(last).toBe(img.size);
+  });
+
+  it("flashes each segment at its own address", async () => {
+    const radio = new MockRadio({ model: "D168UV" });
+    const img = { ...image(32 * 20 + 7, [0x08004000, 0x08020000]), model: "D168UV" };
+    await flashFirmware(radio, img);
+    expectFlashed(radio, img);
+    expect(radio.ended).toBe(true);
+  });
+
+  it("refuses D878UV firmware on a D878UVII", async () => {
+    const radio = new MockRadio({ model: "D878UV2" });
+    await expect(flashFirmware(radio, image(64))).rejects.toThrow(/Radio is a D878UV2, firmware is for D878UV/);
+    expect(radio.packetsReceived).toBe(0);
+  });
+
+  it("accepts an MCU-variant build when the caller names the ident model", async () => {
+    const radio = new MockRadio({ model: "D578UV" });
+    const img = { ...image(64), model: "D578UVA" };
+    await expect(flashFirmware(radio, img)).rejects.toThrow(/firmware is for D578UVA/);
+    await flashFirmware(new MockRadio({ model: "D578UV" }), img, { identModel: "D578UV" });
   });
 
   it("retries a block whose ACK was lost", async () => {
