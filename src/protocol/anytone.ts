@@ -89,11 +89,18 @@ export interface FlashOptions {
   /** Called after identification; throw to reject the radio. */
   onIdent?: (ident: DeviceIdent) => void;
   signal?: AbortSignal;
-  /** Attempts per packet before giving up (reference tool uses 3). */
+  /** Attempts per packet before giving up. */
   maxAttempts?: number;
+  /** Wait for a block's first ACK; resends wait `retryTimeoutMs`. */
   ackTimeoutMs?: number;
+  retryTimeoutMs?: number;
   handshakeTimeoutMs?: number;
+  /** Upper bound for the gap inserted between packets after lost packets. */
+  maxPacketGapMs?: number;
 }
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+const now = () => (typeof performance !== "undefined" ? performance.now() : Date.now());
 
 export async function flashFirmware(
   t: Transport,
@@ -106,9 +113,11 @@ export async function flashFirmware(
     onIdent,
     identModel = image.model,
     signal,
-    maxAttempts = 3,
-    ackTimeoutMs = 1000,
+    maxAttempts = 5,
+    ackTimeoutMs = 400,
+    retryTimeoutMs = 1500,
     handshakeTimeoutMs = 2000,
+    maxPacketGapMs = 20,
   } = opts;
   const total = image.size;
   let sent = 0;
@@ -148,8 +157,20 @@ export async function flashFirmware(
   checkAbort();
 
   // 3. Stream the image, segment by segment.
+  //
+  // Sent back to back, some radios drop an occasional packet (seen on a
+  // D878UV over macOS: every ~5th block unanswered, the resend accepted). So
+  // after a lost packet a gap is inserted before each packet, doubling up to
+  // maxPacketGapMs, and halved again after a long clean run.
   progress("transfer");
   let lastReport = 0;
+  let gapMs = 0;
+  let clean = 0;
+  let ackCount = 0;
+  let ackTotalMs = 0;
+  let ackMaxMs = 0;
+  const ackStats = () =>
+    ackCount ? `ACK avg ${(ackTotalMs / ackCount).toFixed(1)} ms, max ${ackMaxMs.toFixed(0)} ms` : "no ACKs yet";
   for (const seg of image.segments) {
     onLog(`Writing ${seg.data.length} bytes at 0x${seg.address.toString(16)}…`);
     for (let off = 0; off < seg.data.length; off += BLOCK_SIZE) {
@@ -157,29 +178,53 @@ export async function flashFirmware(
       const address = seg.address + off;
       const packet = buildWritePacket(address, seg.data.subarray(off, off + BLOCK_SIZE));
       for (let attempt = 1; ; attempt++) {
+        if (gapMs) await sleep(gapMs);
+        const t0 = now();
         await t.write(packet);
-        const resp = await t.read(ackTimeoutMs);
-        if (resp.length === 1 && resp[0] === ACK) break;
+        let resp = await t.read(attempt === 1 ? ackTimeoutMs : retryTimeoutMs);
+        if (resp.length === 0) {
+          // Give a slow ACK a moment more; one that arrives now still confirms this block.
+          resp = await t.read(100, 20);
+          if (resp.length === 1 && resp[0] === ACK) onLog(`Block 0x${address.toString(16)}: late ACK after ${(now() - t0).toFixed(0)} ms`);
+        }
+        if (resp.length === 1 && resp[0] === ACK) {
+          const ms = now() - t0;
+          ackCount++;
+          ackTotalMs += ms;
+          ackMaxMs = Math.max(ackMaxMs, ms);
+          break;
+        }
         if (attempt >= maxAttempts) {
           throw new FlashError(
             `Block at 0x${address.toString(16)} failed after ${attempt} attempts ` +
-              `(last reply: ${hex(resp) || "timeout"})`,
+              `(last reply: ${hex(resp) || "timeout"}; ${ackStats()})`,
           );
         }
         retries++;
-        onLog(`Block 0x${address.toString(16)}: ${hex(resp) || "timeout"}, retrying`);
-        // Let a late ACK land before discarding it so it isn't taken as the retry's ACK.
+        clean = 0;
+        const prevGap = gapMs;
+        if (resp.length === 0) gapMs = Math.min(maxPacketGapMs, Math.max(1, gapMs * 2));
+        onLog(
+          `Block 0x${address.toString(16)}: ${hex(resp) || "timeout"}, retrying` +
+            (gapMs !== prevGap ? ` (now ${gapMs} ms between packets; ${ackStats()})` : ""),
+        );
         await t.read(50, 50);
         t.flushInput();
       }
+      if (gapMs && ++clean >= 2000) {
+        gapMs = Math.floor(gapMs / 2);
+        clean = 0;
+        onLog(`No lost packets for a while, now ${gapMs} ms between packets`);
+      }
       sent += Math.min(BLOCK_SIZE, seg.data.length - off);
-      const now = Date.now();
-      if (now - lastReport > 50 || sent === total) {
-        lastReport = now;
+      const t1 = Date.now();
+      if (t1 - lastReport > 50 || sent === total) {
+        lastReport = t1;
         progress("transfer");
       }
     }
   }
+  onLog(`Sent ${total} bytes with ${retries} resends (${ackStats()})`);
 
   // 4. Close the transfer.
   progress("finish");

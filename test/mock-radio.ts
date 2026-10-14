@@ -8,6 +8,8 @@ export interface MockRadioOptions {
   dropAcks?: Set<number>;
   /** Packet indexes that are always NAKed. */
   failPackets?: Set<number>;
+  /** Packet indexes whose ACK is sent this many ms late. */
+  lateAcks?: Map<number, number>;
   silent?: boolean;
 }
 
@@ -90,7 +92,9 @@ export class MockRadio implements Transport {
         const addr = (pkt[1]! | (pkt[2]! << 8) | (pkt[3]! << 16) | (pkt[4]! << 24)) >>> 0;
         for (let i = 0; i < BLOCK_SIZE; i++) this.flash.set(addr + i, pkt[5 + i]!);
         this.packetIndex++;
-        this.reply(ACK);
+        const late = this.opts.lateAcks?.get(idx);
+        if (late) setTimeout(() => this.reply(ACK), late);
+        else this.reply(ACK);
       } else {
         p.shift();
       }
