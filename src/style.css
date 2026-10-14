@@ -197,3 +197,23 @@ pre {
 
 footer { margin-top: 24px; font-size: 0.85rem; }
 footer a { color: inherit; }
+
+.about { margin-top: 28px; }
+.about h2 { font-size: 1.15rem; margin: 24px 0 8px; }
+.about h3 { font-size: 1rem; margin: 16px 0 4px; }
+.about p { margin: 0 0 8px; }
+.radio-list { padding-left: 20px; margin: 0; }
+.radio-list li { margin: 4px 0; }
+a { color: var(--accent); }
+.crumbs { margin: 0 0 6px; font-size: 0.9rem; color: var(--muted); }
+a.button {
+  display: inline-block;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+}
+a.button.primary { background: var(--accent); color: var(--accent-text); }
+table.versions { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.92rem; }
+table.versions th, table.versions td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+table.versions th { color: var(--muted); font-weight: 600; }

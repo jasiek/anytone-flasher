@@ -87,7 +87,11 @@ function renderModels() {
       return o;
     }),
   );
-  selectModel(MODELS[0]!.id);
+  // Radio landing pages link here with ?model=<id>.
+  const wanted = new URLSearchParams(location.search).get("model");
+  const initial = MODELS.find((m) => m.id === wanted) ?? MODELS[0]!;
+  ui.model.value = initial.id;
+  selectModel(initial.id);
 }
 
 function selectModel(id: string) {

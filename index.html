@@ -4,14 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>AnyTone Flasher</title>
+    <title>AnyTone Firmware Flasher – update D878UV, D878UVII, D578UV, D168UV in your browser</title>
+    <meta name="description" content="%SEO_DESCRIPTION%" />
+    <link rel="canonical" href="%SEO_ORIGIN%/" />
+    <meta name="theme-color" content="#e8590c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AnyTone Flasher" />
+    <meta property="og:title" content="AnyTone Firmware Flasher" />
+    <meta property="og:description" content="%SEO_DESCRIPTION%" />
+    <meta property="og:url" content="%SEO_ORIGIN%/" />
+    <meta property="og:image" content="%SEO_ORIGIN%/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!--seo:jsonld-->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23e8590c' d='M13 2 4 14h7l-1 8 9-12h-7z'/></svg>" />
   </head>
   <body>
     <main class="wrap">
       <header>
-        <h1>AnyTone Flasher</h1>
-        <p class="lede">Flash official firmware to AnyTone radios from your browser over USB.</p>
+        <h1>AnyTone Firmware Flasher</h1>
+        <p class="lede">Update AnyTone DMR radio firmware from your browser over USB. No CPS, no Windows.</p>
       </header>
 
       <div id="unsupported" class="banner danger" hidden>
@@ -87,10 +98,35 @@
         </details>
       </section>
 
+      <section class="about" id="about">
+        <h2>Supported radios</h2>
+<!--seo:radios-->
+        <h2>How it works</h2>
+        <p>The flasher talks to the radio's bootloader over the Web Serial API, the same protocol AnyTone's
+        Windows update tool uses. Every official firmware release is bundled with the page, so you pick a model and
+        a version and do not download anything. Before writing, it checks that the radio's model and hardware version
+        match the firmware. On D578UV radios it also picks the GD32 or AT32 build from the radio's USB ID.</p>
+        <h2>Questions</h2>
+        <h3>Which browsers work?</h3>
+        <p>Desktop Chrome, Edge or Opera on Windows, macOS, Linux or ChromeOS. Firefox and Safari do not support
+        Web Serial.</p>
+        <h3>Will I lose my codeplug?</h3>
+        <p>Yes. The on-radio installer erases the codeplug and contacts. Tick "Save a codeplug backup" and the flasher
+        reads the radio's memory to a file first. Also save the codeplug with the CPS, because the CPS cannot open
+        this raw backup.</p>
+        <h3>Can I downgrade?</h3>
+        <p>Any bundled version can be written. Use the CPS version that matches the firmware afterwards.</p>
+        <h3>Is this official?</h3>
+        <p>No. This is an independent open-source tool. It sends the unmodified vendor firmware with the protocol
+        documented by <a href="https://github.com/reald/anytone-flash-tools">reald/anytone-flash-tools</a> and
+        <a href="https://dm3mat.darc.de/qdmr/">qdmr</a>. Use it at your own risk.</p>
+      </section>
+
       <footer class="muted">
         Protocol from
         <a href="https://github.com/reald/anytone-flash-tools">reald/anytone-flash-tools</a>.
         Firmware © Qixiang Electron (AnyTone), redistributed unmodified. No warranty: use at your own risk.
+        <a href="https://github.com/jasiek/anytone-flasher">Source on GitHub</a>.
       </footer>
     </main>
     <script type="module" src="/src/main.ts"></script>

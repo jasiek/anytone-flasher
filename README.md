@@ -58,13 +58,16 @@ File layout (`src/codeplug/dump.ts`): `"ATCPDUMP"`, u32 LE format version (1), u
 JSON header (model, hardware, ident, and each region's name, address, length and offset), then the
 region data concatenated.
 
+Live at **https://anytone-flasher.jasiek.me/**. Each radio has its own landing page,
+e.g. [/radios/d878uv/](https://anytone-flasher.jasiek.me/radios/d878uv/).
+
 ## Develop
 
 ```sh
 npm install
 npm run dev        # http://localhost:5173
 npm test           # parser, packet and flasher tests (mock radio)
-npm run build      # static site in dist/
+npm run build      # static site in dist/ (plus radio pages, sitemap.xml, robots.txt)
 ```
 
 ## Protocol
