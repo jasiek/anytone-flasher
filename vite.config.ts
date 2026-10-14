@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import { defineConfig, type Plugin } from "vite";
@@ -14,6 +15,7 @@ import {
   sitemapXml,
   type SiteData,
 } from "./src/seo/site";
+import { REPO_URL } from "./src/report";
 
 function siteData(): SiteData {
   const host = readFileSync(new URL("./public/CNAME", import.meta.url), "utf8").trim();
@@ -24,7 +26,7 @@ function siteData(): SiteData {
     origin: `https://${host}`,
     models: MODELS,
     firmware: manifest.firmware,
-    repoUrl: "https://github.com/jasiek/anytone-flasher",
+    repoUrl: REPO_URL,
   };
 }
 
@@ -60,7 +62,16 @@ function seo(): Plugin {
 // base "./" keeps the build relocatable: it works from any sub-path or static host.
 // HTTPS=1 serves over a self-signed certificate, so Web Serial (secure contexts
 // only) works when the page is opened from another device on the LAN.
+function appVersion() {
+  try {
+    return (process.env.GITHUB_SHA ?? execSync("git rev-parse HEAD", { encoding: "utf8" })).trim().slice(0, 7);
+  } catch {
+    return "dev";
+  }
+}
+
 export default defineConfig({
+  define: { __APP_VERSION__: JSON.stringify(appVersion()) },
   base: "./",
   plugins: [seo(), ...(process.env.HTTPS ? [basicSsl()] : [])],
 });

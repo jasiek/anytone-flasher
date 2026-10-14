@@ -4,6 +4,7 @@ import { MCU_LABEL, MODELS, type RadioModel } from "./models";
 import { dumpFileName, downloadFile, encodeDump, readCodeplug, totalSize, type DumpProgress } from "./codeplug/dump";
 import { FlashError, flashFirmware, hex, type FlashPhase, type FlashProgress } from "./protocol/anytone";
 import { ProgramSession } from "./protocol/program";
+import { issueUrl } from "./report";
 import { isWebSerialSupported, WebSerialTransport } from "./serial/webserial";
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -32,6 +33,10 @@ const ui = {
   result: $("result"),
   logWrap: $<HTMLDetailsElement>("log-wrap"),
   log: $("log"),
+  report: $("report"),
+  reportIssue: $<HTMLAnchorElement>("report-issue"),
+  copyLog: $<HTMLButtonElement>("copy-log"),
+  copyStatus: $("copy-status"),
   steps: ["step-model", "step-firmware", "step-port"].map((id) => $(id)),
 };
 
@@ -60,7 +65,32 @@ function log(msg: string) {
   const t = new Date().toLocaleTimeString();
   ui.log.textContent += `[${t}] ${msg}\n`;
   ui.log.scrollTop = ui.log.scrollHeight;
+  ui.report.hidden = false;
 }
+
+// The link is built when clicked so it carries the log as it is then.
+ui.reportIssue.addEventListener("click", () => {
+  const release = state.selected;
+  ui.reportIssue.href = issueUrl({
+    log: ui.log.textContent ?? "",
+    model: state.model?.name,
+    firmware: release ? `V${release.version}${release.date ? ` (${release.date})` : ""}` : undefined,
+    port: state.port ? describePort(state.port) : undefined,
+    userAgent: navigator.userAgent,
+    appVersion: __APP_VERSION__,
+  });
+});
+
+ui.copyLog.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(ui.log.textContent ?? "");
+    ui.copyStatus.textContent = "Copied.";
+  } catch {
+    ui.copyStatus.textContent = "Could not copy; select the log text instead.";
+    ui.logWrap.open = true;
+  }
+  setTimeout(() => (ui.copyStatus.textContent = ""), 3000);
+});
 
 const fmtBytes = (n: number) => (n >= 1024 * 1024 ? `${(n / 1048576).toFixed(2)} MB` : `${(n / 1024).toFixed(1)} KB`);
 

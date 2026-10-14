@@ -217,3 +217,6 @@ a.button.primary { background: var(--accent); color: var(--accent-text); }
 table.versions { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.92rem; }
 table.versions th, table.versions td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
 table.versions th { color: var(--muted); font-weight: 600; }
+
+.report { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+a.button.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 17px; }
